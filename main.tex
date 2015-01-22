@@ -4,10 +4,10 @@
 \usepackage{blindtext}
 
 
-\title{Title} % The title of your assignement; NB use \newlinetitle to start a newline
-\author{Firstname Lastname} % Your firstname and lastname
-\professor{Firstname Lastname, Affiliation} % Affiliation = ITEM for instance
-\supervisor{Firstname Lastname, Affiliation}
+\title{Human Computable Passwords} % The title of your assignement; NB use \newlinetitle to start a newline
+\author{Anders Kofoed} % Your firstname and lastname
+\professor{Colin Boyd, ITEM} % Affiliation = ITEM for instance
+\supervisor{Colin Boyd, ITEM}
 
 %% Uncomment the following in case you want subfigures; note that there will be a warning for the caption package
 % \let\subcaption\undefined
@@ -27,16 +27,15 @@
 \pagestyle{plain}
 
 %% Only for the project; comment out the line below for the master's thesis; the front page will be generated automatically by DAIM
-\titleITEM
 
 %% Only for the master's thesis; for the project report the description is taken from It's Learning and added by the department
-% \selectlanguage{english} % Change to 'norsk' if you are writing in Norwegian
-% \input{problem_description}
-% \cleardoublepage
+\selectlanguage{english} % Change to 'norsk' if you are writing in Norwegian
+\input{chapters/problem_description}
+\cleardoublepage
 
 %% There must be an abstract in English, even though the main text is in Norwegian
 \selectlanguage{english}
-\include{abstract_english}
+\include{chapters/abstract_english}
 \cleardoublepage
 
 %% Only for the master's thesis; if the main text is in English and you can write Norwegian, there must be an abstract in Norwegian as well.
@@ -46,7 +45,7 @@
 
 \selectlanguage{english}% Change to 'norsk' if you are writing in Norwegian
 
-\include{preface}
+\include{chapters/preface}
 \cleardoublepage
 
 % similarly you may add a separate acknowledgments page
@@ -78,9 +77,8 @@
 
 \pagenumbering{arabic}
 \pagestyle{ruled}
-\include{example_chapter}
 %% include here the other chapters
-
+\include{chapters/introduction}
 \renewcommand*{\bibname}{References}
 \bibliographystyle{alpha}
 \bibliography{main}

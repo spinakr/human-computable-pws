@@ -5,6 +5,7 @@ TEXFILE = main
 default: full
 
 full:
+	cp ~/bibtex/human-computable-passwords.bib ~/human-computable-pws/main.bib
 	pdflatex $(TEXFILE); \
 	bibtex $(TEXFILE); \
 	makeglossaries $(TEXFILE);\
