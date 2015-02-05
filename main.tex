@@ -1,9 +1,5 @@
 \documentclass{MScthesisITEM}
 
-% this package is just to generate text for demo-purposes
-\usepackage{blindtext}
-
-
 \title{Human Computable Passwords} % The title of your assignement; NB use \newlinetitle to start a newline
 \author{Anders Kofoed} % Your firstname and lastname
 \professor{Colin Boyd, ITEM} % Affiliation = ITEM for instance
@@ -79,8 +75,10 @@
 \pagestyle{ruled}
 %% include here the other chapters
 \include{chapters/introduction}
+
+\include{chapters/background}
 \renewcommand*{\bibname}{References}
-\bibliographystyle{alpha}
+\bibliographystyle{ieeetr}
 \bibliography{main}
 
 %% Uncomment the following if you have any appendix
