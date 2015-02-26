@@ -17,7 +17,7 @@ The conclusion on what "good" passwords are, is not clear, but the one thing agr
 Miller \cite{magic-seven_miller} showed that the human brain cannot store more than $7\pm 2$ chunks of information in immediate memory.
 \subsection{Attacks}
 Passwords are often the only barrier stopping adversaries from directly accessing the accounts of a user. The combination of user name and password are the easiest point of entry to access, and thus the first logical point of attack. There are several methods used to attack password authentication, trying to retrieve passwords. The most important attacks and their respective mitigation technique \cite{nist-guide, strong-pws_florencio}, will be discussed in the following section. 
-\paragraph{Capturing} of passwords directly from the server responsible for the authentication involves the attack acquiring password data through breaking into the data storage, eavesdropping on communication channels or through monitoring the user by other means. The first most basic threat are to simply steal the stored password from an insecure server, this would require a weak configured server storing the passwords in plain text. This is mitigated mostly by only storing only cryptographic hashes of passwords. The hashes allows the server to authenticate users while preventing attackers from determining the actual passwords without \emph{cracking} the hashes. This approach would require the attackers to go through several steps. First acquiring the hash of a user account or a whole file of hashes for a site, next one would try to find a sequence of string yielding the same hash as the actual password. How hard it is to crack a hash depends on the strength of the password and can be mitigated by choosing strong passwords and changing these frequently.\emph{ Rainbow tables }~\cite{rainbow-tables} are a technique employed by attackers to speed up this process. Rainbow tables are precomputed table of hashes, allows the attacker to compute a set of hashes once and use these values several times, thus providing a space-time trade-off. This involves using more space, since all the computed hash values would have to be stored somewhere, but allowing a much shorter computation time to brute-force a hash. The technique stores chains of hashes as shown in figure ~\ref{rainbow-table}, storing only the first and last value of the chain. The attacker then search for a given hash in the set of end points, if no match are found the hash function is applied and a new search conducted. This process continues, until a match is found, the plain text is then then computed from the start value of the chain, applying the hash function the same amount of times it took to find a match in the chain. \todo{rewrite: more precise }
+\paragraph{Capturing} of passwords directly from the server responsible for the authentication involves the attack acquiring password data through breaking into the data storage, eavesdropping on communication channels or through monitoring the user by other means. The first most basic threat are to simply steal the stored password from an insecure server, this would require a weak configured server storing the passwords in plain text. This is mitigated mostly by only storing only cryptographic hashes of passwords. The hashes allows the server to authenticate users while preventing attackers from determining the actual passwords without \emph{cracking} the hashes. This approach would require the attackers to go through several steps. First acquiring the hash of a user account or a whole file of hashes for a site, next one would try to find a sequence of string yielding the same hash as the actual password. How hard it is to crack a hash depends on the strength of the password and can be mitigated by choosing strong passwords and changing these frequently.\emph{ Rainbow tables }~\cite{rainbow-tables} are a technique employed by attackers to speed up this process. Rainbow tables are precomputed table of hashes, allows the attacker to compute a set of hashes once and use these values several times, thus providing a space-time trade-off. This involves using more space, since all the computed hash values would have to be stored somewhere, but allowing a much shorter computation time to brute-force a hash. The technique stores chains of hashes as shown in figure ~\ref{rainbow-table}, storing only the first and last value of the chain. The attacker then search for a given hash in the set of end points, if no match are found the hash function is applied and a new search conducted. This process continues, until a match is found, the plain text is then then computed from the start value of the chain, applying the hash function the same amount of times it took to find a match in the chain. \todo{rewrite - more precise }
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{rainbow-table}
@@ -26,7 +26,7 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 \end{figure}
 
 \subsection{Password Storage}
-active and passive attacks  
+
 \subsection{Alternative authentication methods}
 
 \section{Human Behavior}
@@ -36,10 +36,18 @@ active and passive attacks
 
 \section{Usability and Security Challenges}
 
-\section{Mnemonic Techniques}
-
 \section{Browser Extensions}
+Modern computer users shift towards doing more and more work through their web browsers. Web applications have become popular due to the ubiquity of browsers, thus allowing web apps to run anywhere. A web app can run at any platform running a web browser, allowing the application to run on multiple platforms as well as different devices. Updates can be applied quickly without having to distribute patches to a possibly huge amount of devices.
+\par Browser extensions add additional features to the web browser allowing the user to tweak the experience of the web. Typical examples are extensions adding to or tweaking already present features of the browser such as changing how bookmarks are managed, or adding additional features such as blocking advertisements. Lately browser extensions has been extended even further allowing standalone applications to be developed running as native applications ~\cite{chrome-app-blog}. This allows developers to create desktop apps using the same technology as in web apps, mainly HMTL5, Javascript and CCS.
+\par Browser extensions introduce some security concerns which must not be forgotten while developing applications using this environment. Chrome extensions run in the browser with access to both the DOM of the active page as well as the native file system and connected devices. The overall architecture of the application is summarized in \autoref{extension-architecture}
 
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{chrome-extension-architecture}
+    \caption{Chrome extension architecture}
+    \label{extension-architecture}
+\end{figure}
+\par This project will utilize chrome extensions to create a password manager running in the users browser.
 \section{Usability Model}
 
 \section{Security Model}
