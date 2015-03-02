@@ -1,0 +1,30 @@
+@inproceedings{DBLP:conf/cns/BauerCJPT14,
+  author    = {Lujo Bauer and
+               Shaoying Cai and
+               Limin Jia and
+               Timothy Passaro and
+               Yuan Tian},
+  title     = {Analyzing the dangers posed by Chrome extensions},
+  booktitle = {{IEEE} Conference on Communications and Network Security, {CNS} 2014,
+               San Francisco, CA, USA, October 29-31, 2014},
+  pages     = {184--192},
+  year      = {2014},
+  crossref  = {DBLP:conf/cns/2014},
+  url       = {http://dx.doi.org/10.1109/CNS.2014.6997485},
+  doi       = {10.1109/CNS.2014.6997485},
+  timestamp = {Wed, 04 Feb 2015 15:31:19 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/conf/cns/BauerCJPT14},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+@proceedings{DBLP:conf/cns/2014,
+  title     = {{IEEE} Conference on Communications and Network Security, {CNS} 2014,
+               San Francisco, CA, USA, October 29-31, 2014},
+  publisher = {{IEEE}},
+  year      = {2014},
+  url       = {http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=6982337},
+  timestamp = {Wed, 04 Feb 2015 15:15:55 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/conf/cns/2014},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+

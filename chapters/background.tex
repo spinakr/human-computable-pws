@@ -39,15 +39,27 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 \section{Browser Extensions}
 Modern computer users shift towards doing more and more work through their web browsers. Web applications have become popular due to the ubiquity of browsers, thus allowing web apps to run anywhere. A web app can run at any platform running a web browser, allowing the application to run on multiple platforms as well as different devices. Updates can be applied quickly without having to distribute patches to a possibly huge amount of devices.
 \par Browser extensions add additional features to the web browser allowing the user to tweak the experience of the web. Typical examples are extensions adding to or tweaking already present features of the browser such as changing how bookmarks are managed, or adding additional features such as blocking advertisements. Lately browser extensions has been extended even further allowing standalone applications to be developed running as native applications ~\cite{chrome-app-blog}. This allows developers to create desktop apps using the same technology as in web apps, mainly HMTL5, Javascript and CCS.
-\par Browser extensions introduce some security concerns which must not be forgotten while developing applications using this environment. Chrome extensions run in the browser with access to both the DOM of the active page as well as the native file system and connected devices. The overall architecture of the application is summarized in \autoref{extension-architecture}
+\par Browser extensions introduce some security concerns which must not be forgotten while developing applications using this environment. Chrome extensions run in the browser with access to both the DOM of the active page as well as the native file system and connected devices. The overall architecture of the application is summarized in \autoref{extension-architecture} and described in the chrome extensions documentation \cite{chrome-extensions}. The extension core consist of the actual application interface visible to the user as well as long running background jobs and business logic. The background page can be used to spawn panels or popups, and has access to browser APIs. The APIs are special-purpose interfaces providing additional features such as alarms, bookmarks, cookie and file storage. The browser action is activated through a icon in the browser navbar as seen in \autoref{extension-ux}. Clicking the icon typically spawns a popup or a panel to interact with the user. The \emph{content script} can read and modify the active web page, allowing the extensions to tweak the active web page. The content script and the core extensions run in separate processes, shielding the extension from the web. Communication between content scripts and the background is done over an authenticated channel, either through simple one-time requests or long-lived connections.
+\par This project will utilize chrome extensions to create a password manager running in the browser. The user interface will be in a panel spawned by a browser action activated when the user click the icon in the navbar. The user interface is built using the open-source web application framework AngularJS \cite{angularjs}, storage is done using the chrome local storage API.
+
+\subsection{Extensions Security}
+Earlier extensions written for IE and Firefox ran in the same process as the browser and shared the some privileges. This made extensions an attractive entry point for attackers, since a buggy extensions would leave security holes leaking sensitive information or even provide an entry point to the underlying operating system. For these browsers several frameworks for security have been proposed \cite{firefox-ie, js-info-flow}, trying to mitigate vulnerabilities is browser extensions. The chrome extensions architecture is built from scratch with security in mind, chrome uses a permission system \cite{lui-chrome} following three principles; least privileges \cite{protecting-browsers}
+
+
+
 
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{chrome-extension-architecture}
-    \caption{Chrome extension architecture}
+    \caption{Chrome extension architecture.}
     \label{extension-architecture}
 \end{figure}
-\par This project will utilize chrome extensions to create a password manager running in the users browser.
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{chrome-extension-ux}
+    \caption{Chrome extensions browser action and content scripts.}
+    \label{extension-ux}
+\end{figure}
 \section{Usability Model}
 
 \section{Security Model}
