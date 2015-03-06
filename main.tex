@@ -12,6 +12,7 @@
 % \usepackage{subcaption}
 \usepackage{todonotes}
 \usepackage{hyperref}
+\usepackage{mdframed}
 
 \DeclareGraphicsExtensions{.pdf,.jpg, .png}
 \graphicspath{{./figs/}}
@@ -49,29 +50,23 @@
 % similarly you may add a separate acknowledgments page
 
 \tableofcontents*
-\cleardoublepage
 
 %% include if relevant
 \listoffigures
-\cleardoublepage
 
 %% include if relevant
 \listoftables
-\cleardoublepage
 
 %% include if relevant
 \listofalgorithms
 \addcontentsline{toc}{chapter}{List of Algorithms}
-\cleardoublepage
 
 %% include if relevant
 \printglossary[title=List of Symbols, style=long]
-\cleardoublepage
 \glsaddall[]
 
 %% include if relevant
 \printglossary[title=List of Acronyms,type=\acronymtype] % prints just the list of acronyms
-\cleardoublepage
 
 \pagenumbering{arabic}
 \pagestyle{ruled}
@@ -83,6 +78,8 @@
 \include{chapters/human-computable-passwords}
 
 \include{chapters/design}
+
+\include{chapters/implementation}
 
 \include{chapters/conclusion}
 \renewcommand*{\bibname}{References}
