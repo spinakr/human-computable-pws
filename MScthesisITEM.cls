@@ -136,9 +136,9 @@
 \theoremstyle{adefinition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{finalremark}[theorem]{Final Remark}
-\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remark}{Remark}
 \newtheorem{observation}[theorem]{Observation}
-\newtheorem{example}[theorem]{Example}
+\newtheorem{example}{Example}
 \newtheorem{recommendation}{Recommendation}
 \newtheorem{question}{Question}
 
