@@ -151,7 +151,7 @@
 \RequirePackage{listings}
 \RequirePackage[chapter]{algorithm}
 \RequirePackage{algorithmicx}
-\RequirePackage{algpseudocode}
+\RequirePackage[noend]{algpseudocode}
 
 % Page style
 \makepagestyle{ruled}
