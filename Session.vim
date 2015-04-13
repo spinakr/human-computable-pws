@@ -108,14 +108,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +20 main.tex
-badd +91 chapters/human-computable-passwords.tex
-badd +18 MScthesisITEM.cls
-badd +58 chapters/background.tex
+badd +26 main.tex
+badd +143 chapters/human-computable-passwords.tex
+badd +75 chapters/background.tex
 badd +9 biblo.bib
 badd +2 glossary.tex
+badd +2 chapters/application.tex
 args main.tex
-edit chapters/human-computable-passwords.tex
+edit chapters/application.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -297,48 +297,12 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-1
-normal! zo
-6
-normal! zo
-13
-normal! zo
-21
-normal! zo
-24
-normal! zo
-31
-normal! zo
-35
-normal! zo
-42
-normal! zo
-48
-normal! zo
-53
-normal! zo
-60
-normal! zo
-65
-normal! zo
-67
-normal! zo
-69
-normal! zo
-92
-normal! zo
-94
-normal! zo
-96
-normal! zo
-124
-normal! zo
-let s:l = 58 - ((19 * winheight(0) + 28) / 56)
+let s:l = 2 - ((1 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-58
-normal! 0828|
+2
+normal! 0638|
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

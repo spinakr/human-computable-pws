@@ -18,8 +18,12 @@
 \usepackage{algorithmicx}
 \usepackage[noend]{algpseudocode}
 \usepackage{relsize}
+\usepackage{tikz}
 \usepackage{pgfplots}
 
+\pgfplotsset{compat=1.10}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
 
 \DeclareGraphicsExtensions{.pdf,.jpg, .png}
 \graphicspath{{./figs/}}
@@ -87,9 +91,9 @@
 
 \include{chapters/human-computable-passwords}
 
-\include{chapters/design}
+\include{chapters/application}
 
-\include{chapters/implementation}
+\include{chapters/experiment}
 
 \include{chapters/conclusion}
 \renewcommand*{\bibname}{References}
