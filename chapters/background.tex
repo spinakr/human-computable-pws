@@ -47,7 +47,7 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 \todo[inline]{alternative auth: graphical passface etc.}
 
 
-\section{The User}
+\section{The User}\label{sec:the-user}
 "Good passwords" as discussed in \ref{password-strength} does not go well with the human memory. The first limitation which will be an important property later are the limitation to how much data we can store in immediate memory, this limit was showed to be 7 chunks of data at once~\cite{magic-seven_miller}. This data can not be from a random selection which is what a good password requires.   
 \todo[inline]{in progress: human behaviour}
 
@@ -58,12 +58,30 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 \section{Password Management}
 As seen in the previous sections passwords introduce a dilemma as passwords are supposed to be hard to "guess" and thus hard to remember. The naive solution to this problem is to either use one password for many accounts or to write down passwords, even tough most users understand that this solution is bad, users will still do it if the password policy required is too complex. To make the process of managing passwords easier several techniques and tools have been suggested. The main techniques used to help manage passwords online are \cite{management-strategies}: 
 \begin{itemize}
-    \item{Password creation and memorization techniques \cite{password-schemes}.} One way to keep apparently strong unique passwords for all services is to use a base password and apply function using unique information from the different services \footnote{How to Update Your Insecure Passwords and Make Them Easy to Use.\url{http://lifehacker.com/5631203/how-to-update-your-insecure-passwords-and-make-them-easy-to-use}}. The base can be any seemingly random word which is easy to remember, best practice would be to take a sentence or phrase and use the first letters of each word. “May the force be with you.” would yield "mtfbwy" as base, then a rule could be to add the first and last two letters of the service name. With this rule the password for facebook.com would be famtfbwyok.
+    \item{Password managment schemes \cite{password-schemes}.} Password creation and memorization techniques assists the user in remembering passwords, trying to circumvent the limitations of the human memory \autoref{sec:the-user}. One way to keep apparently strong unique passwords for all services is to use a base password and apply function using unique information from the different services \footnote{How to Update Your Insecure Passwords and Make Them Easy to Use.\url{http://lifehacker.com/5631203/how-to-update-your-insecure-passwords-and-make-them-easy-to-use}}. The base can be any seemingly random word which is easy to remember, best practice would be to take a sentence or phrase and use the first letters of each word. “May the force be with you.” would yield "mtfbwy" as base, then a rule could be to add the first and last two letters of the service name. With this rule the password for facebook.com would be famtfbwyok.
     \item{Password manager software.} Applications meant to keep passwords safe for the user. These applications can either be stand alone programs or, more common, browser extensions such as LastPass \footnote{LastPass \url{https://lastpass.com/}}. LastPass provides an user interface to generate and store passwords for online services, as well as form fillers to enter them when logging in. The passwords are encrypted using a master password protecting the user credentials against both server leakage and insiders accessing the data.
-    \item{Built-in browser functions.} Most modern browsers provide "remember password" functions.
+    \item{Built-in browser password managers.} Most modern browsers provide "remember password" functions. These functions act similar to software like LastPass, by storing the users passwords in some fashion, then reproduce it when login in. 
 \end{itemize}
 
-The two latter may seem the easiest to use but requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. If an account storing all the usernames and passwords of a user where to be compromised, all the sites would be compromised. Zhao et al. \cite{lastpass-security} identified several vulnerabilities in the LastPass implementation, even though no known breaches has been reported. \todo[inline]{password management: in progress} 
+The two latter may seem the easiest to use but requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. Software aiding the user by storing passwords often also provide autofill-functions, automatically filling in the username and password of the associated site. Silver et al. \cite{pw-managment-attacks} propose attacks exploiting these autofill functions to extract passwords from the password manager, the most basic example attack is shown in \autoref{rouge-wifi}. Despite of the obvious weaknesses in many password managers, they still argue that password managers can strengthen credential security if implemented correctly.  
+\begin{example}\label{rouge-wifi}
+    Consider a user connecting to a open wifi at a coffee bar or another public place. It is not unusual to present the user with a "landing page" asking for approval of some usage agreement. The rouge wifi provider could include multiple iframes\footnote{\url{http://www.w3schools.com/tags/tag_iframe.asp}} pointing to the login pages of common sites the user probably have stored credentials for. See \autoref{rouge-wifi-page}. By injecting javascript in the iframes the attacker can extract all the usernames and passwords autofilled by the password manager. Note that the iframes displayed in the figure are not visible to the user, to him it looks like a standard landing/welcome page. Silver et al. \cite{pw-managment-attacks} claim that six out of ten password managers were vulnerable to this simple attack.
+
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{rouge-wifi-page}
+    \caption{Rouge wifi landing page containing iframes with common sites, used to steal password form a autofilling password manager.} 
+    \label{rouge-wifi-page}
+\end{figure}
+
+\end{example}
+
+\par Even if the password manager is secure against autofill-attacks, or if it does not include the feature, the manager might still be at risk. If the account storing all the usernames and passwords of a user where to be compromised, all the sites would be compromised, so it is important that the password manager is even more secure than the sites themselves. Zhao et al. \cite{lastpass-security} identified several vulnerabilities in the LastPass implementation, even though no known breaches has been reported. They investigate different types of attacks, including attacks on local decrypted credentials; request monitoring attacks which tries to intercept request between the password manager and related cloud-storage; as well as brute-force attacks trying to crack the master password. The conclusion is that password managers are double-edged swords, in theory they help make password authentication stronger, but if implemented slightly wrong may be a major vulnerability. Storing all the passwords at one place makes a obvious point of attack for adversaries since breaking the managers most of the time would break all accounts stored within.
+
+
+\subsection{Password management schemes}
+\todo[inline]{in progress}
+
 
 \section{Usability Model}
 \cite{naturally-rehearsing}
