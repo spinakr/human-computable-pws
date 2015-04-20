@@ -57,13 +57,26 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 
 \section{Password Management}
 As seen in the previous sections passwords introduce a dilemma as passwords are supposed to be hard to "guess" and thus hard to remember. The naive solution to this problem is to either use one password for many accounts or to write down passwords, even tough most users understand that this solution is bad, users will still do it if the password policy required is too complex. To make the process of managing passwords easier several techniques and tools have been suggested. The main techniques used to help manage passwords online are \cite{management-strategies}: 
-\begin{itemize}
-    \item{Password managment schemes \cite{password-schemes}.} Password creation and memorization techniques assists the user in remembering passwords, trying to circumvent the limitations of the human memory \autoref{sec:the-user}. One way to keep apparently strong unique passwords for all services is to use a base password and apply function using unique information from the different services \footnote{How to Update Your Insecure Passwords and Make Them Easy to Use.\url{http://lifehacker.com/5631203/how-to-update-your-insecure-passwords-and-make-them-easy-to-use}}. The base can be any seemingly random word which is easy to remember, best practice would be to take a sentence or phrase and use the first letters of each word. “May the force be with you.” would yield "mtfbwy" as base, then a rule could be to add the first and last two letters of the service name. With this rule the password for facebook.com would be famtfbwyok.
-    \item{Password manager software.} Applications meant to keep passwords safe for the user. These applications can either be stand alone programs or, more common, browser extensions such as LastPass \footnote{LastPass \url{https://lastpass.com/}}. LastPass provides an user interface to generate and store passwords for online services, as well as form fillers to enter them when logging in. The passwords are encrypted using a master password protecting the user credentials against both server leakage and insiders accessing the data.
-    \item{Built-in browser password managers.} Most modern browsers provide "remember password" functions. These functions act similar to software like LastPass, by storing the users passwords in some fashion, then reproduce it when login in. 
-\end{itemize}
 
-The two latter may seem the easiest to use but requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. Software aiding the user by storing passwords often also provide autofill-functions, automatically filling in the username and password of the associated site. Silver et al. \cite{pw-managment-attacks} propose attacks exploiting these autofill functions to extract passwords from the password manager, the most basic example attack is shown in \autoref{rouge-wifi}. Despite of the obvious weaknesses in many password managers, they still argue that password managers can strengthen credential security if implemented correctly.  
+
+\subsection{Password management schemes}
+ 
+Password creation and memorization techniques assists the user in remembering passwords, trying to circumvent the limitations of the human memory \autoref{sec:the-user}. Blocki et al. \cite{naturally-rehearsing} consider 4 different examples of password managements schemes to illustrate how users might chose their passwords.
+\begin{itemize}
+    \item{ Reuse Weak. } When a user selects a random phrase or word $w$ and reuse this as the password $p_i=w$ for all accounts. While maybe not very strong, this is the most simple example of a password management scheme.
+    \item{ Reuse Strong. } Same as reuse weak but the user chose four random words $w_1,w_2,w_3,w_4$ and reuse the concatenation of these as the password $p_i = w_1w_2w_3w_4$ for all his accounts.
+    \item{Lifehacker.} User choses three random words $w_1, w_2, w_3$ as a base password $b=w_1w_2w_3$ as well as a derivation rule $d$ used to derive unique data from the site names for each password \footnote{How to Update Your Insecure Passwords and Make Them Easy to Use.\url{http://lifehacker.com/5631203/how-to-update-your-insecure-passwords-and-make-them-easy-to-use}}. Example of a derivation rule could be the first and last three letters of the service name. The password for account $A_i$ would then be $p_i = b d(A_i)$ with $d(A_i)$ being the string derived from the site name. In practice a password generated using the method might look like "facthreerandomwordsook". 
+    \item{Strong Random and Independent.} User choses new words $w^i_1, w^i_2, w^i_3, w^i_4$ for each account to be used as passwords $p_i = w^i_1w^i_2w^i_3w^i_4$.
+\end{itemize}
+It is clear that the three former schemes are much easier to use than the last one. Most user would prefer the first ones because they does not require much if any rehearsal while the one strong scheme would require too much effort in terms of rehearsing and memorization. This trade-off between usability and security is the main problem when designing password management schemes. For a scheme to be popular it cannot require too much extra rehearsal, while a secure scheme most of the time will require some.
+
+
+
+\subsection{Password manager software.} Applications meant to keep passwords safe for the user. These applications can either be stand alone programs or, more common, browser extensions such as LastPass \footnote{LastPass \url{https://lastpass.com/}}. LastPass provides an user interface to generate and store passwords for online services, as well as form fillers to enter them when logging in. The passwords are encrypted using a master password protecting the user credentials against both server leakage and insiders accessing the data.
+
+\paragraph{Built-in browser password managers.} Most modern browsers provide "remember password" functions. These functions act similar to software like LastPass, by storing the users passwords in some fashion, then reproduce it when login in. 
+
+These kinds of systems and applications requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. Software aiding the user by storing passwords often also provide autofill-functions, automatically filling in the username and password of the associated site. Silver et al. \cite{pw-managment-attacks} propose attacks exploiting these autofill functions to extract passwords from the password manager, the most basic example attack is shown in \autoref{rouge-wifi}. Despite of the obvious weaknesses in many password managers, they still argue that password managers can strengthen credential security if implemented correctly.  
 \begin{example}\label{rouge-wifi}
     Consider a user connecting to a open wifi at a coffee bar or another public place. It is not unusual to present the user with a "landing page" asking for approval of some usage agreement. The rouge wifi provider could include multiple iframes\footnote{\url{http://www.w3schools.com/tags/tag_iframe.asp}} pointing to the login pages of common sites the user probably have stored credentials for. See \autoref{rouge-wifi-page}. By injecting javascript in the iframes the attacker can extract all the usernames and passwords autofilled by the password manager. Note that the iframes displayed in the figure are not visible to the user, to him it looks like a standard landing/welcome page. Silver et al. \cite{pw-managment-attacks} claim that six out of ten password managers were vulnerable to this simple attack.
 
@@ -79,13 +92,42 @@ The two latter may seem the easiest to use but requires the user to trust that t
 \par Even if the password manager is secure against autofill-attacks, or if it does not include the feature, the manager might still be at risk. If the account storing all the usernames and passwords of a user where to be compromised, all the sites would be compromised, so it is important that the password manager is even more secure than the sites themselves. Zhao et al. \cite{lastpass-security} identified several vulnerabilities in the LastPass implementation, even though no known breaches has been reported. They investigate different types of attacks, including attacks on local decrypted credentials; request monitoring attacks which tries to intercept request between the password manager and related cloud-storage; as well as brute-force attacks trying to crack the master password. The conclusion is that password managers are double-edged swords, in theory they help make password authentication stronger, but if implemented slightly wrong may be a major vulnerability. Storing all the passwords at one place makes a obvious point of attack for adversaries since breaking the managers most of the time would break all accounts stored within.
 
 
-\subsection{Password management schemes}
-\todo[inline]{in progress}
-
 
 \section{Usability Model}\label{sec:usability-model}
+This section presents the usability model defined by Blocki et al. \cite{naturally-rehearsing}, which predicts the effort required of a user to keep a set of secrets memorized without forgetting it. It will be presented in the context of password management schemes, in particular the human computable password management scheme relied on in this project. The model will later be used to analyze the usability of the scheme and related applications.
 
-\cite{naturally-rehearsing}
+\subsection{Definitions}
+A password management scheme generates and keeps track of passwords $p_1, \dots, p_m \in P$ for all $m \in A$ accounts of a user. $P$ is all possible passwords. Let $(\hat c, \hat a)$ represent an association between an object (e.g. letter or picture) and a related  mapping (typically a digit between 1 and 10). A user have to rehearse the association $(\hat c, \hat a)$ to avoid forgetting it. Next two schedules are defined defining how often a user has to rehearse to not forget a association, and how often he visits an account.
+
+\begin{definition}\label{rehearsal-schedule}
+    \cite{hcp-blocki} A rehearsal schedule for an object-mapping association $(\hat c, \hat a)$ is a series of points in time $t^{\hat c}_0 < t^{\hat c}_1 < \dots$. A rehearsal requirement for each $i \ge 0$ says that the object-mapping association pair must be rehearsed at least once in the time interval $[ t^{\hat c}_i, t^{\hat c}_i+1) = \{x \in \mathbb{R} \vert t^{\hat c}_i \le x < t^{\hat c}_{i+1} \} $.
+\end{definition}
+A rehearsal schedule as defined in definition \ref{rehearsal-schedule} is said to be sufficient if a user can keep an association in his memory without forgetting it by following the schedule.
+
+\paragraph{Visitation schedule \cite{hcp-blocki}} is a series of numbers $\tau^i_0 < \tau^i_1 < ...$ representing the points in time when a user visits account $A_i$. This schedule cannot be known exactly so it is modeled using a random process with a parameter $\lambda_i$ based on the average time between visits to account $A_i$ - $E[\tau^i_{j+1} - \tau^i_j]$.
+\par A rehearsal requirement can also be satisfied naturally if a user visits an account using the object $\hat c$ during the interval $[ t^{\hat c}_i, t^{\hat c}_i+1)$, as defined in definition \ref{natural-rehearsal},
+
+\begin{definition}\label{natural-rehearsal}
+    A rehearsal requirement $[ t^{\hat c}_i, t^{\hat c}_i+1)$ is naturally satisfied by a visitation schedule $\tau^i_0 < \tau^i_1 <\dots$ if for any $j \in [m]$ and $k \in \mathbb{N}$ so that $\hat c \in c_j$ and $\tau^j_ki \in [ t^{\hat c}_i, t^{\hat c}_i+1)$. Let \\
+    \begin{large}
+    \centerline{ $ER_{t,\hat c} = \vert\{ i \vert t^{\hat c}_{i+1} \le t \wedge \forall j ,k.(\hat c \notin c_j \wedge \tau^j_k \notin [t^{\hat c}_i, t^{\hat c}_i))\} \vert$ }
+    \end{large}
+    denote how many extra rehearsals required that are not satisfied by the visitation schedule, during time time interval $[0,t]$
+\end{definition}
+
+
+\subsection{Model}
+The core of the model is that usability depends on rehearsal required to remember all passwords, relative to the visitation schedule of the specific user. How hard it is for any given user to remember a relation between object may vary from person to person depending on mnemonic technique and genetic conditions. This is adjusted for in the model by the constant $\sigma$ representing the combined strength of mnemonic technique and the memory of a user. Next, consider two different rehearsal requirements specifying what is needed to maintain a memory.
+
+\begin{requirement}\label{CR}
+    \textbf{ Constant Rehearsal Assumption (CR)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i) = i \sigma$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+\end{requirement}
+
+\begin{requirement}\label{ER}
+    \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i\sigma}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+\end{requirement}
+
+
 
 
 \section{Security Model}
