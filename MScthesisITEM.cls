@@ -130,7 +130,7 @@
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma}{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{adefinition}

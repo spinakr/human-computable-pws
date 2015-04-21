@@ -98,7 +98,6 @@ set viminfo=%,'100,<50,s10,h
 set whichwrap=b,s,<,>,h,l
 set wildignore=*.o,*~,*.pyc
 set wildmenu
-set window=58
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -108,14 +107,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +26 main.tex
-badd +143 chapters/human-computable-passwords.tex
-badd +75 chapters/background.tex
-badd +9 biblo.bib
-badd +2 glossary.tex
-badd +2 chapters/application.tex
-args main.tex
-edit chapters/application.tex
+badd +102 main.tex
+badd +247 chapters/human-computable-passwords.tex
+badd +93 chapters/background.tex
+silent! argdel *
+edit chapters/background.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -277,10 +273,10 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal smartindent
 setlocal softtabstop=0
-setlocal nospell
+setlocal spell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
+setlocal spellfile=~/.vim/spell/en.utf-8.add
+setlocal spelllang=en_us
 setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=.tex
 setlocal noswapfile
@@ -297,12 +293,58 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 2 - ((1 * winheight(0) + 28) / 56)
+1
+normal! zo
+4
+normal! zo
+9
+normal! zo
+29
+normal! zo
+37
+normal! zo
+50
+normal! zo
+58
+normal! zo
+62
+normal! zo
+65
+normal! zo
+79
+normal! zo
+83
+normal! zo
+75
+normal! zo
+80
+normal! zo
+84
+normal! zo
+96
+normal! zo
+99
+normal! zo
+102
+normal! zo
+110
+normal! zo
+112
+normal! zo
+119
+normal! zo
+122
+normal! zo
+126
+normal! zo
+135
+normal! zo
+let s:l = 130 - ((32 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 0638|
+130
+normal! 0230|
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

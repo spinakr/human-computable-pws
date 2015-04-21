@@ -112,22 +112,62 @@ A rehearsal schedule as defined in definition \ref{rehearsal-schedule} is said t
     \begin{large}
     \centerline{ $ER_{t,\hat c} = \vert\{ i \vert t^{\hat c}_{i+1} \le t \wedge \forall j ,k.(\hat c \notin c_j \wedge \tau^j_k \notin [t^{\hat c}_i, t^{\hat c}_i))\} \vert$ }
     \end{large}
-    denote how many extra rehearsals required that are not satisfied by the visitation schedule, during time time interval $[0,t]$
+    denote how many extra rehearsals required, that are \emph{not} satisfied by the visitation schedule, during time time interval $[0,t]$
 \end{definition}
 
 
+
+
 \subsection{Model}
-The core of the model is that usability depends on rehearsal required to remember all passwords, relative to the visitation schedule of the specific user. How hard it is for any given user to remember a relation between object may vary from person to person depending on mnemonic technique and genetic conditions. This is adjusted for in the model by the constant $\sigma$ representing the combined strength of mnemonic technique and the memory of a user. Next, consider two different rehearsal requirements specifying what is needed to maintain a memory.
+The core of the model is that usability depends on rehearsal required to remember all passwords, relative to the visitation schedule of the specific user. How hard it is for any given user to remember a relation between object may vary from person to person depending on mnemonic technique and genetic conditions. This is adjusted for in the model by the constant $s$ representing the combined strength of mnemonic technique and the memory of a user. Next, consider two different rehearsal requirements specifying what is needed to maintain a memory.
 
 \begin{requirement}\label{CR}
-    \textbf{ Constant Rehearsal Assumption (CR)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i) = i \sigma$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+    \textbf{ Constant Rehearsal Assumption (CR)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i) = i s$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
 \end{requirement}
 
 \begin{requirement}\label{ER}
-    \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i\sigma}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+    \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i s}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
 \end{requirement}
 
+The difference between these two assumptions about human memory is that CR assumes that the user have to keep rehearsing every $s$ days for as long as he wants to make sure to not forget anything. This might be too pessimistic since it is reasonable to assume that it gets easier to rehearse for each rehearsal. This is what ER assumes, if a relation has been rehearsed $i$ times it does not have to be rehearsed again in $2^{i s}$ days. ER is the most intuitive assumption to make and is back up by experiments on how the human brain forgets over time \cite{forgetting, human memory}.
 
+\par 
+\subsubsection{Visitation Schedule}
+Every user will eventually have a unique visitation schedule which will vary greatly from user to user. The model uses a Poisson process to model the visitations schedule for a given site $A_i$, with parameter $\lambda_i$. The average time between visits,$\frac{1}{\lambda_i}$, is assumed to be known for each visitation schedule. A site visited every day would yield $\lambda_i = 1$ day, and $\lambda_i=\frac{1}{365}$ days for a site visited annually. 
+\par Next, the model use four different types of users which may have accounts of 5 different account types based on visitation frequency. The users can be: very active, typical, occasional or infrequent, while an account can be visited daily, every three days, every week, every month or annually. Table \ref{users} defines how many of each type the users have respectively. In example, an active user is said to have $10$ accounts he visits daily and $35$ he visits annually.
+
+\begin{table}
+\begin{tabular}{|c||c|c|c|c|c|}
+    \hline
+    Visitation schedule & 1 & $\frac{1}{3}$ & $\frac{1}{7}$ & $\frac{1}{31}$ & $\frac{1}{365}$ \\
+    \hline \hline
+    Very Active & 10 &10 &10 &10 & 35 \\
+    \hline
+    Typical & 5 & 10 & 10 & 10 & 40 \\
+    \hline
+    Occasional & 2 & 10 & 20 & 20 & 23 \\
+    \hline
+    Infrequent & 0 & 2 & 5 & 10 &  58 \\
+    \hline
+\end{tabular}
+\caption{Visitation schedules.}
+\label{users}
+\end{table}
+
+\subsubsection{Extra rehearsals}
+If an object-mapping association $(\hat c, \hat a)$ is not rehearsed through normal usage within the interval $[t^{\hat c}_i, t^{\hat c}_{i+1})$ the user would have to rehearse the association to prevent forgetting it. $ER_{t,\hat c}$ in definition \ref{natural-rehearsal} gives the number of extra rehearsals of $(\hat c, \hat a)$ in a given time interval. From this it can be seen that $ER_t = \sum_{\hat c} ER_{t, \hat c}$ gives the number of rehearsals, in addition to natural rehearsal, needed to maintain all objects in a set of associations. In the context of a password management scheme it is clear smaller values for $E[ER_t]$ yield less effort required by the user.
+\par Blocki et al.\cite{naturally-rehearsing} proves that, given a sufficient rehearsal schedule  and a specific visitation schedule, $ER_t$, total number of extra rehearsals needed to keep all object-mappings in memory, can be predicted through \autoref{ERt}. 
+
+
+\begin{theorem}\label{ERt}
+    \cite{naturally-rehearsing} Let $i_{\hat c}* = (arg max_x t^{\hat c}_x < t)- 1 $, then 
+
+    $ E[ER_t] = \sum_{\hat c \in C} \sum^{i_{\hat c *}}_{i=0} exp\bigg(-\bigg(\sum\limits_{j:\hat c \in C_j} \lambda_j \bigg)(t^{\hat c}_{t+1} - t^{\hat c}_i)\bigg)$
+\end{theorem}
+
+\begin{lemma}
+    \cite{naturally-rehearsing} The probability that $\hat c$ is not rehearsed naturally during the interval $[a,b]$ is $exp(-\lambda_{\hat c} (b-a))$, given $S_{\hat c} = \{i \vert \hat c \in c_i \}$ and $\lambda_{\hat c}= \sum_{i \in S_{\hat c}}$
+\end{lemma}
 
 
 \section{Security Model}
