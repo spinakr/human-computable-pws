@@ -121,7 +121,7 @@
   {\bfseries}%                            % Theorem head font
   {}%                                     % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
-  {\thmname{#1}\thmnumber{ #2. }\thmnote{ #3}}%  % Theorem head spec (can be left empty, meaning `normal')
+  {\thmname{#1}\thmnumber{ #2. }\thmnote{ #3}\newline}%  % Theorem head spec (can be left empty, meaning `normal')
   
 
 \theoremstyle{atheorem} 
