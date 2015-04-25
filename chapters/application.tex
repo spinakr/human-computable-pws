@@ -61,6 +61,12 @@ This extension has specified access to the bookmarks API, chrome local storage a
 
 \section{Human Computable Passwords Chrome Extension}
 \todo[inline]{Present the idea of why and how a chrome extensions can be built to realize the scheme}
+Chrome extensions are very useful in that they can be ran from any computer with Google chrome installed, thus on any operating system and on any computer. An extension makes it possible to run applications while browsing the web, which in the case of an password management scheme is very useful. An application meant to help the user recall complex passwords should preferably be visible simultaneously with the password field. The most popular password management software today are usually either web applications, mobile applications or native desktop applications\footnote{Five Best Password Managers. \url{ http://lifehacker.com/5529133/five-best-password-managers }}, some of these might include plug-ins such as browser extensions. All of these password managers are reliably storing all the passwords as described in \autoref{subsec:pms}, then they are either auto-filled into the login fields or through copy pasting manually. 
+\par This section will present the design and prototype implementation of the human computable password scheme (\autoref{ch:hcp}, \cite{hcp-blocki}. The design evolves around the fact that the scheme does not have to store anything securely, it is though important to make it as easy as possible for the user 
+
+
+
+
 \subsection{Applications Design}
 \todo[inline]{Relate the ideas and architecture presented in the previous section. Explaining how content script and local APIs will be use used to provide an extension supporting the scheme }
 \todo[inline]{Models of how the extensions will look including both user interface and architecture}
