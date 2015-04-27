@@ -1,6 +1,6 @@
 \chapter{Application}\label{app}
 This chapter will describe how browser extensions are built in google chrome, focusing on architecture and security features. Browser extensions can be utilized to build an application implementing "human computable passwords" as described in \autoref{ch:hcp}. The scheme is different from other traditional password managers since it does not \emph{store} the password, but challenges \emph{helping} the user to remember strong passwords. The idea by using browser extensions to implement this is to have an extension monitor the password fields of the sites a user visits and update the challenges depending on the current state of the active site. This technique will be described and a prototype extension demonstrated. 
-\section{Browser Extensions}
+\section{Browser Extensions}\label{browser-extensions}
 Modern computer users shift towards doing more and more work through their web browsers. Web applications have become popular due to the ubiquity of browsers, thus allowing web apps to run anywhere. A web app can run at any platform running a web browser, allowing the application to run on multiple platforms as well as different devices. Updates can be applied quickly without having to distribute patches to a possibly huge amount of devices.
 \par Browser extensions add additional features to the web browser allowing the user to tweak the experience of the web pages visited. Typical examples are extensions adding to, or tweaking already present features of the browser such as changing how bookmarks are managed, or adding additional features such as blocking advertisements. Lately browser extensions have been extended even further allowing standalone applications to be developed running as native applications \footnote{A new breed of Chrome apps, \url{http://chrome.blogspot.no/2013/09/a-new-breed-of-chrome-apps.html} - accessed: 2015-03-02}. This allows developers to create desktop apps using the same technology as in web apps, mainly HMTL5, Javascript and CCS.
 \par This chapter will present Google chrome browser extensions, including architecture and security mechanisms.
@@ -62,7 +62,7 @@ This extension has specified access to the bookmarks API, chrome local storage a
 \section{Human Computable Passwords Chrome Extension}
 \todo[inline]{Present the idea of why and how a chrome extensions can be built to realize the scheme}
 Chrome extensions are very useful in that they can be ran from any computer with Google chrome installed, thus on any operating system and on any computer. An extension makes it possible to run applications while browsing the web, which in the case of an password management scheme is very useful. An application meant to help the user recall complex passwords should preferably be visible simultaneously with the password field. The most popular password management software today are usually either web applications, mobile applications or native desktop applications\footnote{Five Best Password Managers. \url{ http://lifehacker.com/5529133/five-best-password-managers }}, some of these might include plug-ins such as browser extensions. All of these password managers are reliably storing all the passwords as described in \autoref{subsec:pms}, then they are either auto-filled into the login fields or through copy pasting manually. 
-\par This section will present the design and prototype implementation of the human computable password scheme (\autoref{ch:hcp}, \cite{hcp-blocki}. The design evolves around the fact that the scheme does not have to store anything securely, it is though important to make it as easy as possible for the user 
+\par This section will present the design and prototype implementation of the human computable password scheme (\autoref{ch:hcp}, \cite{hcp-blocki}. The design evolves around the fact that the scheme does not have to store anything securely, it is though important to make it as easy as possible for the user. The architecture will be similar to the one explained in \autoref{browser-extensions} using content scripts to monitor the password fields of the active browser session. The user interface will be presented through a "panel" in the browser. Panels are windows that stays in focus will interacting with other windows or applications \footnote{"Panels"- The Chromium Project. \url{https://www.chromium.org/developers/design-documents/extensions/proposed-changes/apis-under-development/panels}}. 
 
 
 
@@ -70,6 +70,24 @@ Chrome extensions are very useful in that they can be ran from any computer with
 \subsection{Applications Design}
 \todo[inline]{Relate the ideas and architecture presented in the previous section. Explaining how content script and local APIs will be use used to provide an extension supporting the scheme }
 \todo[inline]{Models of how the extensions will look including both user interface and architecture}
+The extension implementing human computable passwords \ref{ch:hcp} will be an extensions helping the user with storing and managing of challenges for different accounts. The generation of secret mappings will not be part of the application, this should be done through a separate program on the user's local computer. The requirements for the extension are the following.
+\begin{itemize}
+    \item Provide an user interface making it easy for the user to display challenges for different accounts.
+    \item Displayed challenge should update while typing the password.
+    \item The user should be able to type his password directly in the password field of the active site.
+    \item The application should keep track the active site, displaying challenges for the correct site without user interaction.
+    \item Add new sites to the system easily. 
+    \item If the user is about to forget a secret mapping, according to the usability model \ref{sec:usability-model}, the application should notify about it and advice the user to rehearse.
+\end{itemize}
+
+
+
+\begin{figure}[h]
+    \fbox{ \includegraphics[width=\textwidth]{class-diagram} }
+    \caption{Class diagram of the human computable passwords chrome extension. The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length through the data service, and update the challenges displayed to the user.}
+    \label{class-diagram}
+\end{figure}
+
 
 \subsection{Implementation}
 \todo[inline]{Present the actual design and choices made}
