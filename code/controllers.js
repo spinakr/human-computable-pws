@@ -1,16 +1,30 @@
 angular.module('human-computable-pws.controllers', [])
-.controller("MainController", function($scope, chromeStorage, DataService){
-    $scope.dataService = DataService;
+.controller("MainController", function($timeout, $scope, chromeStorage){
+    //initial values
+    $scope.user = "";
+    $scope.pw=0;
+    $scope.selectedSite=null;
    
-    $scope.newSiteButton=true;
+    //function adding new site to the user
     $scope.newSite = function(){
+        var newSite = new Site($scope.url);
+        $scope.user.sites.push(newSite);
+        $scope.selectedSite = newSite;
+        chromeStorage.set("user", $scope.user);
         $scope.newSiteButton = false;
     }
-    
+   
+    //try to load the user object from storage, if no user is present, create new.
     try{
         chromeStorage.getOrElse("user", function(){
-            $scope.user = null;
-            return null;
+            var newUser = {
+                name: "user",
+                sites: [
+                    new Site("accounts.google.com"),
+                    ]
+            };
+            chromeStorage.set("user", newUser);
+            return newUser;
         }).then(function(keyValue){
             $scope.user = keyValue;
         });
@@ -19,22 +33,37 @@ angular.module('human-computable-pws.controllers', [])
         console.log("Not run as extension")
     }
 
-    $scope.loadUser = function(){
-        console.log("users: %o", $scope.user);
-        if(!user){
-            var newUser = {
-                name: $scope.uname,
-                sites: [
-                    new Site(0, "studweb.ntnu.no"),
-                    new Site(1, "facebook.com"),
-                    new Site(2, "accounts.google.com"),
-                    new Site(3, "github.com")
-                    ]
-            };
-            chromeStorage.set("user", $scope.users);
-            $scope.user = newUser;
+    //receive messages sent from the content script if url or password length changes
+    var tmp;
+    function handleMessage(){
+        if(tmp.pwValue){
+            $scope.pw = tmp.pwValue-1;
+            console.log("pw: %o", $scope.pw);
+            console.log("ombjects:   %o", $scope.user)
         }
-    };
+        if(tmp.newUrl){
+            $scope.url = tmp.newUrl;
+            var site = searchList($scope.url, $scope.user.sites);
+            if(!site){
+                console.log("URL: " + $scope.url + "  sites:  %o ", $scope.user.sites);
+                $scope.newSiteButton=true;
+                $scope.selectedSite = null ; 
+            }else{
+                $scope.newSiteButton=false;
+                $scope.selectedSite = site;
+            }
+        }
+    }
+    //add eventhandler listening for messages from content script
+    try{
+        chrome.runtime.onMessage.addListener(function(message,sender){
+            tmp = message;
+            $timeout(handleMessage);
+        });            
+    }
+    catch(err){
+        console.log("not extension")
+    }
 });
 
 

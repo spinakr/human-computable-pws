@@ -28,30 +28,32 @@ hcp.config(['$routeProvider', function($routeProvider){
             });
 }]);
 
+function searchList(site, sites){                                                                                                                                                                           
+    if(sites == undefined) return false;
+    for(var i = 0; i<sites.length; i++){
+        if(sites[i].name == site){
+            return sites[i];
+        }
+    }
+    return false;
+}
 
-function Site(id, name){
-    this.id = id;
+
+
+function Site(name){
     this.name = name;
     this.challenges = [];
 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
-    this.challenges.push(randomChallenge()); 
+    for(var j=0; j<14; j++){
+        this.challenges.push(randomChallenge()); 
+    }
 }
 
 function randomChallenge(){
     var letters = "abcdefghijklmnopqrstuvwxyz";
     var ch = [];
 
-    for(i=0; i<14; i++){
+    for(var z=0; z<14; z++){
         ch.push(letters.charAt(Math.floor(Math.random()* 26)));
     }
     return ch;

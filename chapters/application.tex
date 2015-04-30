@@ -137,8 +137,7 @@ The implementation follows the design described in the previous section, this se
 
 \subsection{Architecture}
 \par \autoref{class-diagram} shows the complete architecture of the system.
- The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length through the data service, and update the challenges displayed to the user. The data service is also responsible for updating the URL field accessible to the controller.
-
+ The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length from the content script, and update the challenges displayed to the user. When the user visits a new site, the url of that is also sent to the controller, which then updates the view with new challenges. 
 \begin{figure}[h]
     \centering
     \fbox{ \includegraphics[width=\textwidth]{class-diagram} }
@@ -148,10 +147,10 @@ The implementation follows the design described in the previous section, this se
 \par The classes seen in figure \ref{class-diagram} are all represented in the implemented version of the extension. The construction and responsibilities of the classes are summarized in the following list.
 \begin{itemize}
     \item[Controller] is responsible for the business logic related to the information shown to the user in the extension. The controller first tries to load the user data stored in chrome storage, if no user has been created, typically if it is the first time the extension is loaded, a new user is created. In this project the controller also injects a set of dummy-data for the purpose of demonstration, in a real world scenario sites would have to be added through the "add new site"-screen.
-    \item DataService
     \item ChromeStorage
     \item Content script   See \autoref{app:content-script} for the content script file with a brief description of the code. 
-    \item Main.html
+    \item main.html
+    \item 
 
 \end{itemize}
 
