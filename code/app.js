@@ -2,9 +2,7 @@ var hcp = angular.module('human-computable-pws', [
         'human-computable-pws.controllers',
         'ngAnimate', 
         'chromeStorage',
-        'ngCookies',
         'ngRoute',
-        'ngResource'
         ]);
 
 hcp.config( ['$compileProvider', function( $compileProvider  ) {

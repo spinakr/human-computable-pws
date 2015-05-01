@@ -28,39 +28,68 @@
         </div>
 
     </div>
-    <div ng-hide="newSiteButton">
-    <table align="center" class="challenges">
-        <tr>
-            <td> <img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][10]}}.png"/>
-             <img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][11]}}.png"/></td>
-            <td> <img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][12]}}.png"/></td>
-            <td> <img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][13]}}.png"/></td>
-            <td></td>
-        </tr>
-    </table>
-    <hr class="divider" style="margin: 0;">
-    <table align="center" class="challenges">
-        <tr>
-            <td>0<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][0]}}.png"/></td>
-            <td>5<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][5]}}.png"/></td>
-        </tr>
-        <tr>
-            <td>1<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][1]}}.png"/></td>
-            <td>6<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][6]}}.png"/></td>
-        </tr>
-        <tr>
-            <td>2<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][2]}}.png"/></td>
-            <td>7<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][7]}}.png"/></td>
-        </tr> 
-        <tr>
-            <td>3<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][3]}}.png"/></td>
-            <td>8<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][8]}}.png"/></td>
-        </tr>
-        <tr>
-            <td>4<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][4]}}.png"/></td>
-            <td>9<img ng-src="letters/letter_{{user.sites[user.sites.indexOf(selectedSite)].challenges[pw][9]}}.png"/></td>
-        </tr>
-    </table>
+    
+<table 
+    align="center" class="challenges" 
+    ng-init="site = user.sites[user.sites.indexOf(selectedSite)]">
+    <tr>
+        <td> 
+            <img ng-src="letters/letter_{{site.challenges[pw][10]}}.png"/>
+            <img ng-src="letters/letter_{{site.challenges[pw][11]}}.png"/>
+        </td>
+        <td> 
+            <img ng-src="letters/letter_{{site.challenges[pw][12]}}.png"/>
+        </td>
+        <td> 
+            <img ng-src="letters/letter_{{site.challenges[pw][13]}}.png"/>
+        </td>
+        <td></td>
+    </tr>
+</table>
+<hr class="divider" style="margin: 0;">
+<table align="center" class="challenges">
+    <tr>
+        <td>
+            0<img ng-src="letters/letter_{{site.challenges[pw][0]}}.png"/>
+        </td>
+        <td>
+            5<img ng-src="letters/letter_{{site.challenges[pw][5]}}.png"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            1<img ng-src="letters/letter_{{site.challenges[pw][1]}}.png"/>
+        </td>
+        <td>
+            6<img ng-src="letters/letter_{{site.challenges[pw][6]}}.png"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            2<img ng-src="letters/letter_{{site.challenges[pw][2]}}.png"/>
+        </td>
+        <td>
+            7<img ng-src="letters/letter_{{site.challenges[pw][7]}}.png"/>
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            3<img ng-src="letters/letter_{{site.challenges[pw][3]}}.png"/>
+        </td>
+        <td>
+            8<img ng-src="letters/letter_{{site.challenges[pw][8]}}.png"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            4<img ng-src="letters/letter_{{site.challenges[pw][4]}}.png"/>
+        </td>
+        <td>
+            9<img ng-src="letters/letter_{{site.challenges[pw][9]}}.png"/>
+        </td>
+    </tr>
+</table>
+
     </div>
 
 </div>

@@ -41,27 +41,19 @@
 \end{figure}
 
 
-\chapter{Content Script}\label{app:content-script}
+\chapter{Extensions class files}
 
-\lstdefinelanguage{JavaScript}{
-    keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with},
-    morecomment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    morestring=[b]',
-    morestring=[b]",
-    sensitive=true
-}
-\lstdefinestyle{jsStyle}{
-    language=JavaScript,
-    numbers=left,
-    stepnumber=1,
-    numbersep=10pt,
-    tabsize=4,
-    showspaces=false,
-    showstringspaces=false,
-    captionpos=b
-}
+\section{Content Script}\label{app:content-script}
 \lstinputlisting[caption=Content script file., style=jsStyle, basicstyle=\scriptsize]{code/content_script.js}
 
-The content script listines for the onload event triggered by the windows object when a new page is loaded. When receiving this event the updateUrl function(line 27) is called, which sends an update containing the \emph{window.location.hostname} which essentially is the hostname of the current page. Hostname is used since login forms may be located at different locations at different domains.
+The content script listens for the onload event triggered by the windows object when a new page is loaded. When receiving this event the updateUrl function(line 27) is called, which sends an update containing the \emph{window.location.hostname} which essentially is the hostname of the current page. Hostname is used since login forms may be located at different locations at different domains.
 \par Next the script search the DOM for input fields of type "password" using the \emph{getPwdInputs} function(line 16). This function iterates through all the input fields looking for password fields. If a password field is found, an event listener is attached to the field, listening for events of type "input" which are sent when the field changes\footnote{https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener}. When the password field changes a message containing the new length of the password is sent to the controller. 
+
+\section{Controller}\label{app:controller}
+\lstinputlisting[caption=Angular controller., style=jsStyle, basicstyle=\scriptsize]{code/controllers.js}
+
+\section{App.js file}\label{app:app.js}
+\lstinputlisting[caption=Angular launcher file., style=jsStyle, basicstyle=\scriptsize]{code/app.js}
+
+\section{View file (partial file)}\label{app:view}
+\lstinputlisting[caption=Angular view. Only included the table showing the challenges for readability., style=jsStyle, basicstyle=\scriptsize, firstline=32, lastline=91]{code/content.html}

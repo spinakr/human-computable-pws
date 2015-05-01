@@ -97,7 +97,7 @@ See "Angular Essentials - Rodrigo Branas"\cite{angularjs-book} for a step-by-ste
 
 \par The main benefits of using angular in this project is the data-binding which makes it easy to update the HTML shown to the user. The extension will take advantage of this when updating the challenges seamlessly while the user calculates his password.
 
-\subsubsection{Chrome Storage.}
+\subsubsection{Chrome Storage.}\label{chrome-storage}
 \emph{Local storage\footnote{Local storage - \url{ http://diveintohtml5.info/storage.html }}} is a way for applications to store data persistently and securely in the browser of clients. It is meant as an improvement of cookies which is the usual way of storing user data across sessions. The biggest problem with cookies is that they are sent with every HTTP request and thus slow down the applications using them. Local storage allows applications to store (key, value)-pairs in the browser. 
 \par \emph{Chrome storage} is close to the same as local storage, differences being that chrome local storage allows applications to store data in what is called "chrome.storage.sync". This specific storage saves data locally, but also syncs it with the currently active chrome account, thus allowing a user to log into his account in any chrome browser and access the same application data. Chrome storage also allows storage of objects compared to local storage which only allows storing strings. This project will use chrome storage to persistently store challenges across sessions, and also provide backup. This way each user will be able to keep challenges for all their account within the storage of their google account. This is a important feature since it allows access to the challenges from remote locations as well.
 
@@ -138,21 +138,31 @@ The implementation follows the design described in the previous section, this se
 \subsection{Architecture}
 \par \autoref{class-diagram} shows the complete architecture of the system.
  The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length from the content script, and update the challenges displayed to the user. When the user visits a new site, the url of that is also sent to the controller, which then updates the view with new challenges. 
-\begin{figure}[h]
+
+ \begin{figure}[h]
     \centering
     \fbox{ \includegraphics[width=\textwidth]{class-diagram} }
     \caption{Class diagram of the human computable passwords chrome extension.}
     \label{class-diagram}
 \end{figure}
-\par The classes seen in figure \ref{class-diagram} are all represented in the implemented version of the extension. The construction and responsibilities of the classes are summarized in the following list.
-\begin{itemize}
-    \item[Controller] is responsible for the business logic related to the information shown to the user in the extension. The controller first tries to load the user data stored in chrome storage, if no user has been created, typically if it is the first time the extension is loaded, a new user is created. In this project the controller also injects a set of dummy-data for the purpose of demonstration, in a real world scenario sites would have to be added through the "add new site"-screen.
-    \item ChromeStorage
-    \item Content script   See \autoref{app:content-script} for the content script file with a brief description of the code. 
-    \item main.html
-    \item 
 
+\par The classes seen in figure \ref{class-diagram} are all represented in the implemented version of the extension. The construction and responsibilities of the classes are summarized in the following list.
+
+\begin{itemize}
+    \item \textbf{Controller} is responsible for the business logic related to the information shown to the user in the extension. The controller first tries to load the user data stored in chrome storage, if no user has been created, typically if it is the first time the extension is loaded, a new user is created. The controller keeps track of the url of the current active page and the current length of the password field. It listens for messages from the content scripts and updates the URL and password length variables with the info received. The controller class used in the extension is described in appendix \ref{app:controller}.
+    \item \textbf{ChromeStorage\footnote{angular-chrome-storage - \url{https://github.com/infomofo/angular-chrome-storage}}} is a utility resource used to access chrome local storage[\autoref{chrome-storage}]. This module is essentially a wrapper making it easier to retrieve data from chrome storage, while also providing useful debugging and cache management functions.
+    \item \textbf{Content script} is responsible for attaching event listeners to the password field of the currently active page.. It also listens to the onload event, sending url updates to the controller every time a new page is loaded. The content script of the extension built in this project can be seen appendix \ref{app:content-script}.
+    \item \textbf{main.html} is the view of the application, responsible for the user interface. The view receives updates from the controller through the \$scope variable. When the controller updates in example the current password length, this is reflected in the view where different objects are shown. If the current url are not in the users list of saved sites, the view shows a dialog allowing the user to add it. When adding a new site the user should update the password of that site using the extension. A snippet of the view is shown in appendix \ref{app:view}. 
+    \item \textbf{App.js} is the focal point of the application, responsible for initializing the angular app and routing of views. In this project this file also includes some helper functions which can be seen in appendix \ref{app:app.js}.
 \end{itemize}
+
+\paragraph{Launching} the application is done by clicking an icon in the browser toolbar which will launch the extension in a panel floating on top of the other browser windows and tabs. This behavior is specified in the \emph{background page\footnote{Background pages - \url{https://developer.chrome.com/extensions/background_pages}}}. The background page is the "launcher" of the extension, it listens for the user to click the extension icon firing an browser action event. On catching this event, the script spawns a panel, with the angular application as content. \autoref{background} shows the background page of this extension. After spawning the panel, the background page is standby doing nothing, everything now happens through the angular application running inside the panel. 
+
+\lstinputlisting[caption=Background page., label=background, style=jsStyle, basicstyle=\small, frame=single]{code/background.js}
+
+\subsection{Demonstration}\label{demo}
+\todo[inline]{Show a walkthough of how a user typically would authenticate with a site using the extension}
+
 
 
 \subsection{Discussion}
