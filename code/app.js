@@ -1,29 +1,37 @@
 var hcp = angular.module('human-computable-pws', [
-        'human-computable-pws.controllers',
-        'ngAnimate', 
-        'chromeStorage',
-        'ngRoute',
-        ]);
+    'human-computable-pws.controllers',
+    'ngAnimate', 
+    'chromeStorage',
+    'ngRoute',
+    ]);
 
-hcp.config( ['$compileProvider', function( $compileProvider  ) {
-        var currentImgSrcSanitizationWhitelist = $compileProvider.imgSrcSanitizationWhitelist();
-        var newImgSrcSanitizationWhiteList = currentImgSrcSanitizationWhitelist.toString().slice(0,-1) 
-            + '|chrome-extension:' +currentImgSrcSanitizationWhitelist.toString().slice(-1);
+hcp.config( ['$compileProvider', 
+    function( $compileProvider  ) {
+        var currentImgSrcSanitizationWhitelist = 
+            $compileProvider.imgSrcSanitizationWhitelist();
+        var newImgSrcSanitizationWhiteList = 
+            currentImgSrcSanitizationWhitelist.toString().slice(0,-1) 
+            + '|chrome-extension:' +currentImgSrcSanitizationWhitelist.
+            toString().slice(-1);
 
-        console.log("Changing imgSrcSanitizationWhiteList from "+currentImgSrcSanitizationWhitelist+" to "+newImgSrcSanitizationWhiteList);
-        $compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
+        console.log("Changing imgSrcSanitizationWhiteList from "+
+            currentImgSrcSanitizationWhitelist+" to "+
+            newImgSrcSanitizationWhiteList);
+        $compileProvider.imgSrcSanitizationWhitelist(
+            newImgSrcSanitizationWhiteList);
     }
 ]);
 
-hcp.config(['$routeProvider', function($routeProvider){
-        $routeProvider.
-            when('/',{
-                templateUrl: 'partials/content.html',
-                controller: 'MainController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
+hcp.config(['$routeProvider', 
+function($routeProvider){
+    $routeProvider.
+        when('/',{
+            templateUrl: 'partials/content.html',
+            controller: 'MainController'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
 }]);
 
 function searchList(site, sites){                                                                                                                                                                           

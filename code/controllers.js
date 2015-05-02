@@ -1,5 +1,6 @@
 angular.module('human-computable-pws.controllers', [])
-.controller("MainController", function($timeout, $scope, chromeStorage){
+.controller("MainController", 
+    function($timeout, $scope, chromeStorage){
     //initial values
     $scope.user = "";
     $scope.pw=0;
@@ -14,9 +15,11 @@ angular.module('human-computable-pws.controllers', [])
         $scope.newSiteButton = false;
     }
    
-    //try to load the user object from storage, if no user is present, create new.
+    //try to load the user object from storage, 
+    //if no user is present, create new.
     try{
-        chromeStorage.getOrElse("user", function(){
+        chromeStorage.getOrElse("user", 
+        function(){
             var newUser = {
                 name: "user",
                 sites: [
@@ -33,7 +36,8 @@ angular.module('human-computable-pws.controllers', [])
         console.log("Not run as extension")
     }
 
-    //receive messages sent from the content script if url or password length changes
+    //receive messages sent from the content script 
+    //if url or password length changes
     var tmp;
     function handleMessage(){
         if(tmp.pwValue){
@@ -45,7 +49,6 @@ angular.module('human-computable-pws.controllers', [])
             $scope.url = tmp.newUrl;
             var site = searchList($scope.url, $scope.user.sites);
             if(!site){
-                console.log("URL: " + $scope.url + "  sites:  %o ", $scope.user.sites);
                 $scope.newSiteButton=true;
                 $scope.selectedSite = null ; 
             }else{
@@ -56,7 +59,8 @@ angular.module('human-computable-pws.controllers', [])
     }
     //add eventhandler listening for messages from content script
     try{
-        chrome.runtime.onMessage.addListener(function(message,sender){
+        chrome.runtime.onMessage.addListener(
+        function(message,sender){
             tmp = message;
             $timeout(handleMessage);
         });            

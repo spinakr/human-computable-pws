@@ -54,7 +54,9 @@ This extension has specified access to the bookmarks API, chrome local storage a
     \label{extension-ux}
 \end{figure}
 
-\paragraph{Process isolation} is a set of mechanisms shielding the component from each other and from the web. Usually when javascript is loaded from the web the authority of the script is limited to the origin from where the script is loaded \cite{protecting-browsers}. Since the scripts used by the extensions are loaded from the file system, they do not have a origin in the same sense, and thus need to be assigned one. This is done by including a public key in the url of the extension, allowing a packaged extension to sign itself, freeing it from any naming authority or similar. The public key also enables usage of persistent data storage, since the origin of the extension can stay the same throughout updates and patches. This wouldn't be possible otherwise since the chrome local storage API relies on origin. \todo{more details}
+\paragraph{Process isolation} is a set of mechanisms shielding the component from each other and from the web. Usually when javascript is loaded from the web the authority of the script is limited to the origin from where the script is loaded \cite{protecting-browsers}. Since the scripts used by the extensions are loaded from the file system, they do not have a origin in the same sense, and thus need to be assigned one. This is done by including a public key in the url of the extension, allowing a packaged extension to sign itself, freeing it from any naming authority or similar. The public key also enables usage of persistent data storage, since the origin of the extension can stay the same throughout updates and patches. This wouldn't be possible otherwise since the chrome local storage API relies on origin. Each extension will have a private/public key pair, a hash of the public key is used as id and each updated version uploaded will be sign with the private key. By doing this the id stays the same throughout versions and can be verified by when uploading and by chrome storage after releasing a new version. 
+
+
 \par The different components also run in different processes. The content scripts are injected and ran in the same process as the active web page, while the core run in its own process started when the extension is initiated. \todo{paragraph not finished. Cross-origin js and malicious web site operators.}
 \par Finally content scripts are ran in a separate javascript environment isolating it from the possibly insecure environment of the web site. The environment of the content scripts are called isolated world, which in practice is a separate set of javascript objects reflecting the ones of the underlying DOM of the web page. This means that the content script can read and edit the DOM of the page it is injected into, but not access variables or javascript functions present in the web page. Both the page and the content scripts sees no other javascript executing in their own isolated world, but they share the same DOM \footnote{Content Scripts, \url{https://developer.chrome.com/extensions/content_scripts} - accessed: 2015-03-05}.
 
@@ -62,7 +64,7 @@ This extension has specified access to the bookmarks API, chrome local storage a
 \section{Human Computable Passwords Chrome Extension}
 \todo[inline]{Present the idea of why and how a chrome extensions can be built to realize the scheme}
 Chrome extensions are very useful in that they can be ran from any computer with Google chrome installed, thus on any operating system and on any computer. An extension makes it possible to run applications while browsing the web, which in the case of an password management scheme is very useful. An application meant to help the user recall complex passwords should preferably be visible simultaneously with the password field. The most popular password management software today are usually either web applications, mobile applications or native desktop applications\footnote{Five Best Password Managers. \url{ http://lifehacker.com/5529133/five-best-password-managers }}, some of these might include plug-ins such as browser extensions. All of these password managers are reliably storing all the passwords as described in \autoref{subsec:pms}, then they are either auto-filled into the login fields or through copy pasting manually. 
-\par This section will present the design and prototype implementation of the human computable password scheme (\autoref{ch:hcp}, \cite{hcp-blocki}. The design evolves around the fact that the scheme does not have to store anything securely, it is though important to make it as easy as possible for the user. The architecture will be similar to the one explained in \autoref{browser-extensions} using content scripts to monitor the password fields of the active browser session. The user interface will be presented through a "panel" in the browser. Panels are windows that stays in focus will interacting with other windows or applications \footnote{"Panels"- The Chromium Project. \url{https://www.chromium.org/developers/design-documents/extensions/proposed-changes/apis-under-development/panels}}. 
+\par This section will present the design and prototype implementation of the human computable password scheme (\autoref{ch:hcp}, \cite{hcp-blocki}. The design evolves around the fact that the scheme does not have to store anything securely, it is though important to make it as easy as possible for the user. The architecture will be similar to the one explained in \autoref{browser-extensions} using content scripts to monitor the password fields of the active browser session. The user interface will be presented through a "panel" in the browser. Panels are windows that stays in focus will interacting with other windows or applications \footnote{"Panels"- The Chromium Project. \url{https://www.chromium.org/developers/design-documents/extensions/proposed-changes/apis-under-development/panels}}.
 
 
 
@@ -139,7 +141,7 @@ The implementation follows the design described in the previous section, this se
 \par \autoref{class-diagram} shows the complete architecture of the system.
  The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length from the content script, and update the challenges displayed to the user. When the user visits a new site, the url of that is also sent to the controller, which then updates the view with new challenges. 
 
- \begin{figure}[h]
+\begin{figure}[h]
     \centering
     \fbox{ \includegraphics[width=\textwidth]{class-diagram} }
     \caption{Class diagram of the human computable passwords chrome extension.}
@@ -162,8 +164,53 @@ The implementation follows the design described in the previous section, this se
 
 \subsection{Demonstration}\label{demo}
 \todo[inline]{Show a walkthough of how a user typically would authenticate with a site using the extension}
+After launching the extension, as previously explained, the user is presented with the window show in figure \ref{launch-screen}. In this example the active site does not have a record in the users challenge database, thus the "add new" dialog. By hitting the button new challenges are generated and stored in the database as a new site. The site is automatically added with the current site domain as key together with randomly generated challenges. Next time the user visits the same page, challenges will appear. After adding a new site, it is the users responsibility to change to the password of this site so it matches the challenges.
+
+\par Figures \ref{ch-screens}a-d shows how a user would use the extension when login in to a site. When launching it the system receive the current sites domain and loads the first challenge corresponding to that site. The user then calculates the first character using the challenges displayed, when this is entered new challenges appear until the whole password is calculated. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{launch-screen} 
+    \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges.}
+    \label{launch-screen}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ch-screen1} 
+        \caption{}
+        \label{challenge-screen1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ch-screen2} 
+        \caption{}
+        \label{challenge-screen2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ch-screen3} 
+        \caption{}
+        \label{challenge-screen2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{ch-screen4} 
+        \caption{}
+        \label{challenge-screen2}
+    \end{subfigure}
+    \caption{Challenge screens as seen by the user while entering password. The challenges update when the user enter a new character in the password field.}
+    \label{ch-screens}
+\end{figure}
 
 
+\subsection{Data flow}\label{data-flow}
+\todo[inline]{brief description of data flow + flow chart figure}
 
 \subsection{Discussion}
 \todo[inline]{Discuss how and why using an extension instead of a typical web or mobile application is more usable etc. }
