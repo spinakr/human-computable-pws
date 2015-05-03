@@ -168,14 +168,14 @@ After launching the extension, as previously explained, the user is presented wi
 
 \par Figures \ref{ch-screens}a-d shows how a user would use the extension when login in to a site. When launching it the system receive the current sites domain and loads the first challenge corresponding to that site. The user then calculates the first character using the challenges displayed, when this is entered new challenges appear until the whole password is calculated. 
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{launch-screen} 
     \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges.}
     \label{launch-screen}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
@@ -208,12 +208,22 @@ After launching the extension, as previously explained, the user is presented wi
     \label{ch-screens}
 \end{figure}
 
+\newpage
 
-\subsection{Data flow}\label{data-flow}
-\todo[inline]{brief description of data flow + flow chart figure}
+\subsubsection{Data flow}\label{data-flow}
+Figure \ref{flow-chart} illustrates the life cycle of the application. When the user visits a site, an event is triggered and caught by the content script, which in turn message the controller about the newly loaded site. The controller then tries to load challenges for that site from the storage; if there is a record, the view is updated with the first challenge, if not the "add new"-dialog is loaded. Next event is triggered when the user enters a character in the password field, on receiving notice from the content script the controller updates the view with a new challenge depending on the new length of the password.This will then go on until the user has entered the entire password, eventually closing the extension panel.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{flow-chart} 
+    \caption{Sequence diagram showing the flow in the system when a page is loaded and characters typed in a password field.}
+    \label{flow-chart}
+\end{figure}
 
 \subsection{Discussion}
 \todo[inline]{Discuss how and why using an extension instead of a typical web or mobile application is more usable etc. }
+The approach of this project when designing the human computable passwords extension was to make an clean and intuitive application making the password management scheme feasible to use. The extension does not require any user interaction, except from when adding new sites, this was done so that the user can focus on doing the calculation correctly without having to keep track of the challenges. The scheme itself is also quit complicated so it is important that the user can focus on as few operations as possible. 
+\par The choice of a browser extension was done with the same mind set, making the application helpful and not distracting. It should be easy to start using the application, requiring as little configuration and managing as possible. The design and construction presented in this chapter makes it so that the only real "configuration" required is the changing of passwords when adding sites, which essentially can not be circumvent. Panels is another very useful feature, since the panels float on top of the other browser windows and keeps in focus while typing. Without panels the user would have to switch between windows when calculating a character an typing it in the password field, which would be a huge drawback both in terms of time and usability. 
+\par One apparent problem with using extensions is that they are not supported in mobile browsers, and probably will never be \footnote{Multidevice FAQ - \url{https://developer.chrome.com/multidevice/faq}}. The solution to this would be to make an additional application for mobile and sync the data to another service available on mobile as well. This is would be done quit easily since the data is stored as text, the only change needed would be to substitute the storage module with some other cloud storage service. The problem if the application was built for mobile would be the lack of space to display challenges while typing the password. 
 
 
 
