@@ -13,13 +13,19 @@ with open('all-data.json') as data_file:
 #mu, sigma = 100, 15
 #x = mu + sigma*np.random.randn(10000)
 
+f= open('out.csv', "a")
 x=[]
 for sample in datas:
     for calcSample in sample['calcTimes']:
         x.append(calcSample)
+        f.write(str(calcSample) + "\n")
 
 
 #x = datas[0]['calcTimes']
+
+f.close
+
+
 
 n, bins, patches = plt.hist(x, 50, normed=1, facecolor='green', alpha=1)
 #plt.axis([ 0, 20, 0, 0.16 ])

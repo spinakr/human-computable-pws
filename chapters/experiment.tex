@@ -46,6 +46,21 @@ The experiment application will be similar in design to the Chrome extension pre
 \todo[inline]{Presentation of the results gather through the experiment (calculation time, failure rate etc. )}
 \todo[inline]{Different plots of the data. Not sure what and how to plot the different data??}
 
+
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[xlabel=Calculation times in seconds. ,ybar, ymin=0, yticklabels={,,}]
+            \addplot +[
+                    hist = {
+                        bins=30,
+                        data min=0,
+                        data max=20
+                    }                
+                ]table [y index=0]{calcTimes.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
 \subsection{Discussion}
 \todo[inline]{Discuss how the results fit in the usability model, plots $\hat t$ for the different participants}
 \todo[inline]{What use cases would require a faster or slower calculation time?}
