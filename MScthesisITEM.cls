@@ -58,8 +58,8 @@
 % Lists
 \RequirePackage{enumitem}
 \RequirePackage{textcomp}
-\renewcommand{\labelitemi}{\textendash}
 \renewcommand{\labelitemii}{\textopenbullet}
+\renewcommand{\labelitemi}{\textbullet}
 
 % Columns
 \RequirePackage{multicol}

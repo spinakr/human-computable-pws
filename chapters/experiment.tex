@@ -27,9 +27,14 @@ The experiment will present and demonstrate the calculation technique to the use
 \subsubsection{Secret mapping} The biggest decision made in regards to the experiment design was how to simulate "recalling" from memory. It would not be feasible to ask all the participants to memorize a secret mapping on beforehand as this would probably make it impossible to find volunteers. The chosen solution to this problem is to include a "cheat sheet" in addition to the displayed challenges, this will be a list of object to digit mappings shown separately but in the same view as the challenge.
 \par After some testing it became apparent that the there was a big difference between recalling from memory and actually "reading" from a list, which this approach eventually is. To make the operation more similar to the desired recall operation, the mapping was changed from random to mirror the alphabet with accompanying position(e.g A=1, B=2, C=3). This way one does not have to read in the table to know correct mapping for all letters at least. Most users will be able to know instantly what the mapping for at least the first and eventually, after some practice, all the letters. The is the closest way of mimicking the actual operations of the scheme without having the participants memorize an actual mapping. It is not in any way certain that this shortcut reflect the real world act of recalling from memory, but it is assumed to be "close enough" for the experiment. The author of this project did memorize a mapping of both 10 and later 20 mappings without significantly different calculation times compared to using the alphabet positions.
 
-\par Section \ref{computation-time} discussed how a single digit challenge can be presented to the user in a logical way, possibly making it more efficient to calculate. The experiment use a similar layout to the one shown in \autoref{challenges} and also as in the Chrome extension in Chapter \ref{app}. 
+\par Section \ref{computation-time} discussed how a single digit challenge can be presented to the user in a logical way, possibly making it more efficient to calculate. The experiment use a similar layout to the one shown in \autoref{challenges} and also as in the Chrome extension in Chapter \ref{app}. The challenges will update in the same way as in the chrome extension so the user should be able to calculate the responses continuously. The calculation time is recorded for each challenge computed, together with a boolean value representing if the result was correct or not. 
+\par Figure \ref{complete-experiment} shows the screen after completing a trail of the experiment, next the user would push the submit button and the sample would be saved in the database together with a random identification stored in a cookie in the user's browser. The user can then redo the experiment several times keeping the same id, making it possible to track each participant's development.
 
-
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{complete-experiment}
+    \caption{The experiment screen seen after completing an experiment sample, ready to be submitted.}
+    \label{complete-experiment}
+\end{figure}
 
 \subsection{Web Application}
 \todo[inline]{Design and architecture of the web application}
