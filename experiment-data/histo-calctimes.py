@@ -18,12 +18,13 @@ x=[]
 for sample in datas:
     for calcSample in sample['calcTimes']:
         x.append(calcSample)
-        f.write(str(calcSample) + "\n")
+        if(calcSample > 2):
+            f.write(str(calcSample) + "\n")
 
 
 #x = datas[0]['calcTimes']
 
-f.close
+f.close();
 
 
 

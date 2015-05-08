@@ -14,7 +14,7 @@ usrCount=0
 
 for sample in datas:
     tmp = []
-    for calcSample in sample['results']:
+    for calcSample in sample['calcTimes']:
         tmp.append(calcSample)
     
     calcs.append(tmp)
@@ -44,7 +44,7 @@ count=0
 for i in range( len( sums ) ):
     x.append(count)
     count+=1
-    avgs.append(1-(sums[i]/counts[i]))
+    avgs.append((sums[i]/counts[i]))
     print "Sum:  " + str( sums[i] ) + " | count " + str( counts[i] ) + " | avg: " + str(sums[i]/counts[i])
 
 

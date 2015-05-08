@@ -1,5 +1,3 @@
-MongoDB shell version: 2.4.9
-connecting to: hcp-experiment
 [
 	{
 		"hcpId" : "1b7aa17ea0",
@@ -482,16 +480,6 @@ connecting to: hcp-experiment
 		"avg" : 12.84783333333333
 	},
 	{
-		"hcpId" : "1afd210809",
-		"sum" : 0,
-		"count" : 0,
-		"calcTimes" : [ ],
-		"results" : [ ],
-		"age" : 23,
-		"occupation" : "Non-technical student",
-		"avg" : NaN
-	},
-	{
 		"hcpId" : "128b619b8a",
 		"sum" : 127.69399999999999,
 		"count" : 9,
@@ -730,15 +718,6 @@ connecting to: hcp-experiment
 		"sum" : 142.953,
 		"count" : 19,
 		"calcTimes" : [
-			0.193,
-			1.054,
-			0.138,
-			0.129,
-			0.139,
-			0.139,
-			0.141,
-			0.133,
-			0.139,
 			16.891,
 			13.595,
 			11.651,
@@ -751,15 +730,6 @@ connecting to: hcp-experiment
 			15.358
 		],
 		"results" : [
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
-			0,
 			1,
 			1,
 			1,
@@ -776,4 +746,3 @@ connecting to: hcp-experiment
 		"avg" : 7.523842105263158
 	}
 ]
-bye
