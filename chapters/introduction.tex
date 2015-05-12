@@ -1,16 +1,36 @@
 \chapter{Introduction}
 \label{chp:intro} 
+Passwords has come to be the one go to authentication method used by nearly all Internet sites and services. Guidelines and policies instructing the users on how their passwords should be, and how they should be maintained. The problem with most of these recommendations, are that they expect too much of the user. The password should be long and complicated, changed every month and not reused on more than one account. These are all commonly seen as recommendations are requirements given by sites on the Internet, and it is clear that no user will ever be able to fulfill them without using some kind of scheme or by adapting their passwords to circumvent them. Passwords reuse or password schemes improvised by the user will lead to a major loss in security, which of course is the opposite of the intentions when requiring passwords to be long and complex. 
+\par It does not seem that passwords as authentication mechanism are falling in popularity, this together with the obvious limitations of the human memory, means that there is a need for strong ways of managing passwords. 
+
 
 \section{Motivation}
-\cite{Blocki2014}
+Blocki et al.~\cite{Blocki2014,hcp-blocki} has proposed a scheme allowing human users to calculated passwords based on publicly available challenges and a secret mapping stored in their own memory. This allows the user to protect all online accounts using long passwords while only remembering one set of mappings. The proposed scheme relies on generating random challenges for each account, which then have to be visible to the user when logging in to the desired account. Blocki propose ideas on how to make it easy for the user to both memorize the mappings and do the calculations efficiently. Mnemonic tehcniques to ease the memorization process and a special layout making the calculations more intuitive.
+\par The usability of a password management scheme is key for it to even be considered by most users. If the requirements for it to function is too high compared to the security rewards, not user will bother learning it. For the human computable password scheme proposed by Blocki, the usability is mostly related to the time spend calculating the password and in addition to the initial cost of memorizing a set of mappings.
+\par This project wants to investigate how this human computable passwords scheme can be used by real users. Since the scheme is quite complex, it can be useful to have an application taking care of all the required overhead, such as generation and management of challenges. Such an application will be designed and implemented, with a goal of making it so that a user, without to much introduction, can use it to manage passwords. The application will be presented and the usability rewards discussed.
+\par Even if the application makes the scheme easy and feasible to use, it might still be that the scheme is too demanding in regards to time spend calculating. This will be the be second part of this project, to investigate how efficient human users actually can calculate password. An experiment asking the participants to actually calculate password based on randomly generated challenges, will be design. The experiment will then record statistics regarding calculation time and failure rate of the trials. The study will be structured as an exploratory experiment, trying to find interesting and possibly important characteristics in the usage statistics recorded through the experiment.
 
-\section{Related Work}
+%\section{Related Work}
 
 \section{Scope and Objectives}
+The project will first present human computable passwords as constructed by Blocki~\cite{hcp-blocki}, while also describing other related background material. The objectives of the project can be summarized as the following:
+\begin{itemize}
+    \item Study the scheme with a special focus on the usability parameters, discussing how the different components of the scheme affect the usability.
+    \item Design, implement and demonstrate a prototype application realizing the password management scheme as an actual application.
+    \item Discuss if the usability is improved through the chosen design. 
+    \item Design, implement and conduct an experiment investigating the limitations imposed by calculation time and failure rates of an average user.
+    \item Conclude with a hypothesis about the practical limitations or advantages of the password management scheme.
+\end{itemize}
+\par The experiment will not be a formal scientific research, trying to verify a hypothesis stated in advance, but it will rather collect data thought to be of interest. Afterwards the data will be presented and analyzed, no concrete answer will be given, but initial trends and characteristics will be discussed.
+\paragraph{Limitations.}
+It is worth noting that the usability of the scheme is directly based on two things, the calculation time(including the failure rate) and the effort spent memorizing and rehearsing the secret mapping. The experiment which is part of this project will only investigate the calculation times and failure rates. The efforts related to the secret mapping will be discussed in the background and where it is important, but memorizing a secret mapping will not be part of the experiment trials. The reasoning for this decision is that it would be much harder to find participants willing to memorize a set of mappings without somehow compensating them for the efforts.
 
-\section{Method}
-\subsection{Development}
-\subsection{Experiments}
+
 
 \section{Outline}
+\paragraph{Chapter 2} will present relevant background material, mostly related to password or password management schemes. Other methods for storing passwords will be presented, showing the difference between password management software actually storing passwords, and password management schemes which usually only helps the user remember them. Finally the usability model proposed by Blocki~\cite{Blocki2014} will be described.
+\paragraph{Chapter 3} describes human computable passwords as described by Blocki~\cite{hcp-blocki}, including definitions and human computable functions. Next, some new security features will be presented, showing an interesting relationship between the security parameters of the scheme, allowing a user to adjust the scheme to his needs. A walk-through of the scheme showing how to set it up and how to calculate passwords will be given in \autoref{usage}.
+\par The author notes that the chapter is partially reference work presenting the scheme of Blocki, but also new thoughts and descriptions (\autoref{sec-params}, \autoref{sec:usability}) highlighting important features of the scheme. 
+\paragraph{Chapter 4} presents 
+
 
