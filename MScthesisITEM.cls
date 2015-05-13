@@ -128,19 +128,20 @@
 \numberwithin{equation}{chapter}
 
 \newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{corollary}[chapter]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{adefinition}
-\newtheorem{definition}[theorem]{Definition}
+\newtheorem{definition}{Definition}[chapter]
 \newtheorem{finalremark}[theorem]{Final Remark}
-\newtheorem{remark}{Remark}
-\newtheorem{observation}[theorem]{Observation}
-\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{observation}{Observation}[chapter]
+\newtheorem{example}{Example}[chapter]
 \newtheorem{recommendation}{Recommendation}
 \newtheorem{question}{Question}
+\newtheorem{requirement}{Requirement}[chapter]
 
 \newcommand\xqed[1]{%
   \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill

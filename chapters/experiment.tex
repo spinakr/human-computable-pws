@@ -34,14 +34,6 @@ The experiment will present and demonstrate the calculation technique to the use
 \subsection{Secret mapping} The biggest decision made in regards to the experiment design was how to simulate "recalling" from memory. It would not be feasible to ask all the participants to memorize a secret mapping on beforehand as this would probably make it impossible to find volunteers. The chosen solution to this problem is to include a "cheat sheet" in addition to the displayed challenges, this will be a list of object to digit mappings shown separately but in the same view as the challenge.
 \par After some testing it became apparent that the there was a big difference between recalling from memory and actually "reading" from a list, which this approach eventually is. To make the operation more similar to the desired recall operation, the mapping was changed from random to mirror the alphabet with accompanying position(e.g A=1, B=2, C=3). This way one does not have to read in the table to know correct mapping for all letters at least. Most users will be able to know instantly what the mapping for at least the first and eventually, after some practice, all the letters. The is the closest way of mimicking the actual operations of the scheme without having the participants memorize an actual mapping. It is not in any way certain that this shortcut reflect the real world act of recalling from memory, but it is assumed to be "close enough" for the experiment. The author of this project did memorize a mapping of both 10 and later 20 mappings without significantly different calculation times compared to using the alphabet positions.
 
-\par Section \ref{computation-time} discussed how a single digit challenge can be presented to the user in a logical way, possibly making it more efficient to calculate. The experiment use a similar layout to the one shown in \autoref{challenges} and also as in the Chrome extension in Chapter \ref{app}. The challenges will update in the same way as in the chrome extension so the user should be able to calculate the responses continuously. The calculation time is recorded for each challenge computed, together with a boolean value representing if the result was correct or not. 
-\par Figure \ref{complete-experiment} shows the screen after completing a trail of the experiment, next the user would push the submit button and the sample would be saved in the database together with a random identification stored in a cookie in the user's browser. The user can then redo the experiment several times keeping the same id, making it possible to track each participant's development.
-
-\begin{figure}[h]
-    \includegraphics[width=\textwidth]{complete-experiment}
-    \caption{The experiment screen seen after completing an experiment sample, ready to be submitted.}
-    \label{complete-experiment}
-\end{figure}
 
 \subsection{Participants}
 The participants for the experiment was chosen mostly from people known by the author, this limits the number of participants somewhat. This was done to ensure the quality of the data samples. The experiment could have been distributed through crowd sourcing services or social media, probably increasing the number of participants drastically. The problem with this approach, and the reason for not doing it, is that the experiment requires absolute concentration which can not be assured from "casual" participants accessing the experiment through a link posted on facebook. 
@@ -53,7 +45,19 @@ The participants for the experiment was chosen mostly from people known by the a
 \subsection{Web Application}
 \todo[inline]{Design and architecture of the web application}
 \todo[inline]{Discuss if a similar application could be used as an actual password manager. What are the advantages/disadvantages versus the extension implementation. }
-The experiment application will be similar in design to the Chrome extension presented in \autoref{app}, but implemented as a web application. The application will consist of four sections in the form of different views in a form. First the user will be presented with a presentation of the scheme and how to calculate passwords.
+The experiment application will be similar in design to the Chrome extension presented in \autoref{app}, but implemented as a web application. The application will consist of four sections to flip through, with the last one being the actual experiment.  First the user will be presented with a presentation of the scheme and how to calculate passwords, this will be in the form of a demo presentation with instructions. The slides used to instruct the user can be seen in \autoref{demo-slides}, these will be parts of a video in the first view of the web application. After watching the video, the user if asked to enter some demographic data (age and occupation). Next, is a section which looks the same as the experiment, but without the actual recording of data, this is the practice section. The purpose of this section is to give the user a chance to verify that he has understood the scheme and are actually able to calculate passwords. When the user is ready to start the experiment, he can continue on to the actual experiment, which is the final view. 
+
+\par The experiment is exactly like the practice section, without response on correctness and redo capabilities, with backspace deactivated. The first sample of the experiment will not be counted towards the results, to allow the user to get ready and start when he feels like it. 
+\par Section \ref{computation-time} discussed how a single digit challenge can be presented to the user in a logical way, possibly making it more efficient to calculate. The experiment use a similar layout to the one shown in \autoref{challenges} and also as in the Chrome extension in Chapter \ref{app}. The challenges will update in the same way as in the chrome extension so the user should be able to calculate the responses continuously. The calculation time is recorded for each challenge computed, together with a boolean value representing if the result was correct or not. 
+\par Figure \ref{complete-experiment} shows the screen after completing a trail of the experiment, next the user would push the submit button and the sample would be saved in the database together with a random identification stored in a cookie in the user's browser. The user can then redo the experiment several times keeping the same id, making it possible to track each participant's development.
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{complete-experiment}
+    \caption{The experiment screen seen after completing an experiment sample, ready to be submitted.}
+    \label{complete-experiment}
+\end{figure}
+
+\par The views of the web application can be seen in \autoref{experiment-views} or by visiting the hosted experiment site at \url{hcp.sp1nakr.com}.
 
 
 \subsection{Results}
