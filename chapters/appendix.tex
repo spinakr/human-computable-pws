@@ -51,13 +51,18 @@ The content script listens for the onload event triggered by the windows object 
 
 \section{Controller}\label{app:controller}
 \lstinputlisting[caption=Angular controller., style=jsStyle, basicstyle=\scriptsize]{code/controllers.js}
+The controller is responsible for all the business logic, keeping the storage updated with new users and new sites. The \emph{newSite} method on line 10 is called when then "new site"-button is clicked by the user, it then generates a new object of type Site with the domain name as attribute. The site is then added to the user object which is stored to the database to keep the storage persistent in case of disconnection. 
+\par When the controller is loaded the first action executed is trying to load the user object from the storage (line 20), if no user object is found, the controller creates a new one. In the code presented here, a new user is initiated with a dummy site for demonstration purposes. All the storage specific methods are called from the \emph{chromeStorage} object, which makes it easy to do operations accessing the Chrome storage. The \emph{getOrElse} is used, which checks for a user object and creates a new if none is present. 
+\par The controller also listens for messages from the content script, this event listener can be seen at line 62. When a message is received the \emph{handleMessage} is called to process the data, distinguishing between a changes in the URL and changes in password length. When data is received, the corresponding variable in the controller is updated. If a new site was added, the view is also updated, hiding the "new site"-button.
 
 \section{App.js file}\label{app:app.js}
 \lstinputlisting[caption=Angular launcher file., style=jsStyle, basicstyle=\scriptsize]{code/app.js}
 
+The app.js file initiates the application, specifying the modules used as well as some helper functions, including get function responsible for generating the random challenges(line 66). If the application contained several pages the routing would also be done in this file. 
+
 \section{View file (partial file)}\label{app:view}
 \lstinputlisting[caption=Angular view. Only included the table showing the challenges for readability., style=jsStyle, basicstyle=\scriptsize, firstline=32, lastline=91]{code/content.html}
-
+The code shows in this listing is the part of the view where the challenges are presented. It is essentially a table containing a single digit challenge in each cell. Notice the double bracket notation, where each of the challenges are fetched. \emph{\{\{site.challenges[pw][i]\}\}} refers to the \emph{\$scope.site.challenges} which contains the challenges associated with the current active page. $pw$ is at any given time the length of the password field of the active web page, if $pw$ changes the challenges on display will automatically change through the two-way data binding in Angular. This way, the correct challenge will always be the one seen by the user.
 
 
 \chapter{Experiment application}\label{experiment-views}

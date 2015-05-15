@@ -11,17 +11,24 @@ How to measure the strength of passwords is a well known and discussed problem, 
 \par Yan et al.~\cite{memorability_yan} investigate the trade-off between security of passwords versus memorability allowing humans to remember them. An important regarding this trade-off is that most sites applying advice and policies on how to create strong passwords, do not take into account if the recommended passwords are hard or easy to remember. There is no point in having a strong password if the user is going to forget it. Yan et al. suggest that passwords should appear random but be constructed using a  mnemonic structure such ass passphrases. The idea here is to generate a random looking password by memorizing a familiar sentence and using the first letters of each word as the password. 
 \par Florêncio et al.~\cite{strong-pws_florencio} investigate another matter; do strong passwords accomplish anything? The point is that no matter how long and complex password users chose they are still subject to the most dangerous and common threats (phishing, keylogging or access attacks), as discussed in the previous section. The reason for enforcing strong passwords seems to be to protect against bulk guessing attacks, against other attacks, typically offline attacks, shorter passwords is usually sufficient. 
 
-\par 
+\par Some services my require their users to include characters from different groups, such as digits, symbols and upper case letters, and possibly a minimum length. Table \ref{pw-strength} illustrates the effects of password length and character set. The values represents the possible values a key might have given the length and character set. E.g. using only digits and length 4 gives $10^4$ possible combinations. The bigger the key space is the harder it is to perform a brute force attack. Note that the key space increase more rapidly with increased password length, than by increasing complexity of the characters used. If the character set is increased from 10 to 95 the key space increase 800 times given length of 4 characters, while increasing the length from 4 to 16 increase the key space one billion times with a character set of 10. Even if both character set and password length contribute to the strength of a password, length is the dominant factor.
 
+\definecolor{Gray}{gray}{0.9}
 
 \begin{figure}
-    \begin{tabular}{|c|c|c|c|c|}\hline
-        \diag{.1em}{.5cm}{$a_i$}{$b_j$}& 1 & 1 & 1 & 1 \\\hline
-        1&1&1&1&1\\\hline
-        1&1&1&1&1\\\hline
-        1&1&1&1&1\\\hline
-        1&1&1&1&1\\\hline
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|}
+    \multicolumn{6}{c}{Password length}\\\cline{2-6}
+    \multirow{6}{*}{\begin{sideways}Character set\end{sideways}}
+      &\cellcolor{Gray}&\cellcolor{Gray}4&\cellcolor{Gray}8&\cellcolor{Gray}12&\cellcolor{Gray}16\\\cline{2-6}
+    &\cellcolor{Gray}10&$10^4$&$10^8$&$10^{12}$&$10^{16}$\\\cline{2-6}
+    &\cellcolor{Gray}26&$5\cdot10^5$&$2\cdot10^{11}$&$10^{17}$&$4\cdot10^{22}$\\\cline{2-6}
+    &\cellcolor{Gray}36&$2\cdot 10^6$&$3\cdot10^{12}$&$5\cdot10^{18}$&$8\cdot10^{24}$\\\cline{2-6}
+    &\cellcolor{Gray}62&$10^7$&$2\cdot10^{14}$&$3\cdot10^{21}$&$5\cdot10^{28}$\\\cline{2-6}
+    &\cellcolor{Gray}95&$8\cdot10^7$&$7\cdot10^{15}$&$5\cdot10^{23}$&$4\cdot10^{31}$\\\cline{2-6}
     \end{tabular}
+    \caption{\cite{nist-guide} Table showing the possible keyspace of passwords, given length and character set. }
+    \label{pw-strength}
 
 \end{figure}
 
@@ -42,7 +49,7 @@ How to measure the strength of passwords is a well known and discussed problem, 
 \todo[inline]{hashing, salt etc..}
 Internet services using password as authentication method typically have to store information about their users, associating a user and a password. How this information is kept secure can not be controlled by the user, but it important for passwords to work. Especially since many users tend to re-use their passwords on several account~\cite{domino-effect}, thus if one account is compromised, many others might also be lost. It is a fact that these kinds of breaches do happen from time to time, and attackers might even post the credentials online\footnote{Hackers post millions of stolen Gmail passwords - \url{http://www.cbsnews.com/news/russian-hackers-steal-5-million-gmail-passwords/} } If the service stores the passwords in plain text, leakage might directly lose passwords if the database gets lost.
 \par Most online accounts try to make it harder for attackers to compromise the accounts of their users. The most used technique are hashing of the passwords before storing them, making it hard for an attacker to recover the actual passwords even if the database is broken. Hashing means applying a one-way function on the plain text password, producing a fixed length hash value which is stored instead of the plain text. When a user wants to log in the password is sent to the server where it is hashed again using the same one-way function and then compared to the stored hash value. If the database where these hashes are stored is compromised, making the hashes available to the attacker, he can no longer directly use the data to steal account. The attacker would have to first perform an offline attack, cracking[\autoref{atck}] the hashes to recover the plain text passwords, which requires a lot of effort and time to carry out. 
-\par The problem with only hashing the passwords is that the hash of a given password will be the same every time, making it possible to recognize known password hashes through the use of big table containing the hashes of known passwords. This way a hash might get cracked quite easily, see \autoref{atck} for details on such attacks. To circumvent this problem a service might add a random \emph{salt} to the password before hashing it. This way the hash of a user's password will be unique even for users with the same password. A salt is a randomly generated nonce, which is concatenated with the password before hashing, and then stored alongside the hash value in the user database. To authenticate a user the server concanates the entered password with the salt from 
+\par The problem with only hashing the passwords is that the hash of a given password will be the same every time, making it possible to recognize known password hashes through the use of big table containing the hashes of known passwords. This way a hash might get cracked quite easily, see \autoref{atck} for details on such attacks. To circumvent this problem a service might add a random \emph{salt} to the password before hashing it. This way the hash of a user's password will be unique even for users with the same password. A salt is a randomly generated nonce, which is concatenated with the password before hashing, and then stored alongside the hash value in the user database. To authenticate a user the server concatenates the entered password with the salt from 
 
 \begin{example}
     Let the following be the records of a user database, and $H$ a cryptographically strong hash function. \\

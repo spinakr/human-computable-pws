@@ -152,6 +152,7 @@ The implementation follows the design described in the previous section, this se
 
 \paragraph{Random numbers} are an important component of the application since all the security relies on the fact that the secret mapping and the challenges are chosen at random. As for this application, the only concern is the challenges, since the secret mapping would be generated using a separate program on each client's machines. Javascript provide a function called \emph{Math.random} which is not considered cryptographically secure~\cite{js-crypto} and should thus not be used. New browser now support a new method which are considered to be the best suited random source for cryptographic purposes, the method is called \emph{window.crypto.getRandomValues()}\footnote{RandomSource.getRandomValues() - \url{https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues}}. The application uses this function as the source of randomness to generate challenges. The random number generator used can be seen in \autoref{app:app.js}.
 
+\paragraph{Mapping objects.} The application as implemented and demonstrated in this chapter uses the alphabet as mapping objects. As explained in \autoref{ch:hcp}, these objects could be anything and are fixed in this presentation for simplicity. There is a folder in the implementation where all the pictures are kept, these could easily be exchanged with other pictures to better suite the user. 
 
 \paragraph{Launching} the application is done by clicking an icon in the browser toolbar which will launch the extension in a panel floating on top of the other browser windows and tabs. This behavior is specified in the \emph{background page\footnote{Background pages - \url{https://developer.chrome.com/extensions/background_pages}}}. The background page is the "launcher" of the extension, it waits for the user to click the extension icon, firing a browser action event. On catching this event, the script spawns a panel, with the angular application as content. \autoref{background} shows the background page of this extension. After spawning the panel, the background page is standby doing nothing, everything now happens through the angular application running inside the panel. 
 
@@ -164,8 +165,8 @@ After launching the extension, as previously explained, the user is presented wi
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{launch-screen} 
-    \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges.}
+    \includegraphics[width=\textwidth]{new-site-dialog} 
+    \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges. After clicking the "Add site"-button, the next view shows the generated challenges. The user should then calculate the response and change the password of the site to match it.}
     \label{launch-screen}
 \end{figure}
 
@@ -201,6 +202,7 @@ After launching the extension, as previously explained, the user is presented wi
     \caption{Challenge screens as seen by the user while entering password. The challenges update when the user enter a new character in the password field.}
     \label{ch-screens}
 \end{figure}
+
 
 \newpage
 
