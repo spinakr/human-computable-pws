@@ -12,11 +12,14 @@ with open('per-user-data.json') as data_file:
 calcs = []
 usrCount=0
 samplesize=0
+failSum=0
+failCount=0
 for sample in datas:
     tmp = []
-    for calcSample in sample['calcTimes']:
-        tmp.append(calcSample)
+    for calcSample in sample['results']:
+        tmp.append(failSample)
         samplesize+=1
+        failSum+=failSample
     
     calcs.append(tmp)
     usrCount+=1
@@ -42,12 +45,12 @@ for l in calcs:
 avgs=[]
 x=[]
 count=0
-f= open("sum-avgs.dat", "a");
+f= open("sum-avgs-fail.dat", "a");
 
 for i in range( len( sums ) ):
     x.append(count)
     count+=1
-    avgs.append((sums[i]/counts[i]))
+    avgs.append(1-(sums[i]/counts[i]))
     f.write(str(i+1) + " " + str(sums[i]/counts[i]) + "\n")
     print "Sum:  " + str( sums[i] ) + " | count " + str( counts[i] ) + " | avg: " + str(sums[i]/counts[i])
 

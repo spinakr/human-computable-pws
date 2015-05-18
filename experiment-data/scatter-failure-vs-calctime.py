@@ -5,7 +5,7 @@ from pprint import pprint
 from scipy.stats import linregress
 
 
-with open('sample-data.json') as data_file:
+with open('per-user-data.json') as data_file:
     datas = json.load(data_file)
 
 

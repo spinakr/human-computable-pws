@@ -65,9 +65,10 @@ The experiment application will be similar in design to the Chrome extension pre
 \todo[inline]{Different plots of the data. Not sure what and how to plot the different data??}
 
 
-\begin{center}
+\begin{figure}
+    \centering
     \begin{tikzpicture}
-        \begin{axis}[xlabel=Calculation times in seconds. ,ybar, ymin=0, yticklabels={,,}]
+        \begin{axis}[width=\textwidth, xlabel=Calculation times in seconds. ,ybar, ymin=0, yticklabels={,,}]
             \addplot +[
                     hist = {
                         bins=20,
@@ -79,7 +80,42 @@ The experiment application will be similar in design to the Chrome extension pre
 
         \end{axis}
     \end{tikzpicture}
-\end{center}
+    \caption{Histogram showing the distribution of calculation times of all the recorded experiments. Sample size $342$ single digit challenges.}
+    \label{histo-calctimes}
+\end{figure}
+
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[
+                enlargelimits=false,
+                xlabel=Trial number: $i$,
+                ylabel = Average calculation time in seconds.,
+                width=\textwidth,
+                ymin=4,
+                ymax=18
+        ]
+        \addplot+[
+                only marks,
+                scatter,
+                mark size=1.5pt
+            ]
+            table[meta=avg]
+            {sum-avgs.dat};
+        \addplot[
+            domain=0:80,
+            samples=3,
+            very thick
+        ]{12.56074424-0.06942622*x};
+    \end{axis}
+
+\end{tikzpicture}
+\caption{Average calculation time of all participants' $i'th$ calculation sample, and the regression line of the averages. Sample size $342$, average samples per participant $31$.}
+\label{scatter-regression}
+\end{figure}
+
+
+
 
 \subsection{Discussion}
 \todo[inline]{Discuss how the results fit in the usability model, plots $\hat t$ for the different participants}

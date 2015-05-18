@@ -3,7 +3,7 @@ import json
 import numpy as np
 from pprint import pprint
 
-with open('all-data.json') as data_file:
+with open('per-user-data.json') as data_file:
     datas = json.load(data_file)
 
 
@@ -13,15 +13,17 @@ with open('all-data.json') as data_file:
 #mu, sigma = 100, 15
 #x = mu + sigma*np.random.randn(10000)
 
-f= open('out.csv', "a")
+f= open('calcTimes.csv', "a")
 x=[]
+samplecount=0
 for sample in datas:
     for calcSample in sample['calcTimes']:
         x.append(calcSample)
         if(calcSample > 2):
             f.write(str(calcSample) + "\n")
+            samplecount+=1
 
-
+print(samplecount)
 #x = datas[0]['calcTimes']
 
 f.close();

@@ -3,7 +3,7 @@ import json
 import numpy as np
 from pprint import pprint
 
-with open('all-data.json') as data_file:
+with open('per-user-data.json') as data_file:
     datas = json.load(data_file)
 
 
