@@ -14,7 +14,7 @@ The goal of the experiment is to measure how hard it is for a user to learn the 
 \end{itemize}
 
 
-\subsection{Method}
+\section{Method}
 The experiment does not try to test any preset hypothesis as it is not clear what to expect regarding either of the tested values. It is not known how hard it is to to the calculations, neither regarding calculation time or failure rates. The results of the experiment will not be a clear answer to any hypothesis, but rather a basis for further data collection through larger scale experiments, in example using crowd sourcing or social medias.
 
 \par Exploratory data analysis (EDA) was introduced by John W. Turkey~\cite{turkey} which involves analysis of data without a prior hypothesis to test. The technique promotes exploration of data to possible find characteristics not previously considered, and essentially suggesting hypotheses to be tested later surveys or experiments. Velleman and Hoaglin~\cite{exploratory-analysis} describes EDA as a contrast to the formal scientific method involving stating a hypothesis, collecting data and applying a statistical test of the hypothesis. EDA often involves making graphical representations of the data, and then try to find interesting characteristics and relations. EDA does not conclude with a hypothesis test based on the collected data, but is the first step of an iterative process trying to reveal facts. 
@@ -42,7 +42,7 @@ The participants for the experiment was chosen mostly from people known by the a
 
 
 
-\subsection{Web Application}
+\section{Web Application}
 \todo[inline]{Design and architecture of the web application}
 \todo[inline]{Discuss if a similar application could be used as an actual password manager. What are the advantages/disadvantages versus the extension implementation. }
 The experiment application will be similar in design to the Chrome extension presented in \autoref{app}, but implemented as a web application. The application will consist of four sections to flip through, with the last one being the actual experiment.  First the user will be presented with a presentation of the scheme and how to calculate passwords, this will be in the form of a demo presentation with instructions. The slides used to instruct the user can be seen in \autoref{demo-slides}, these will be parts of a video in the first view of the web application. After watching the video, the user if asked to enter some demographic data (age and occupation). Next, is a section which looks the same as the experiment, but without the actual recording of data, this is the practice section. The purpose of this section is to give the user a chance to verify that he has understood the scheme and are actually able to calculate passwords. When the user is ready to start the experiment, he can continue on to the actual experiment, which is the final view. 
@@ -57,14 +57,31 @@ The experiment application will be similar in design to the Chrome extension pre
     \label{complete-experiment}
 \end{figure}
 
+\par As for the storage of results a noSQL database called mongoDb is used\footnote{mongoDB - \url{https://www.mongodb.org/}}. After completing a trial of the experiment a javascript object is stored in the database, \autoref{db-obj} shows an example of this object. Note the \emph{hcp\_id} field which is fetched from a cookie in the participants' browser, making it persist across several trials. 
+
 \par The views of the web application can be seen in \autoref{experiment-views} or by visiting the hosted experiment site at \url{hcp.sp1nakr.com}.
 
+\begin{table}
+\begin{tabular}{|c|c|}
+    \hline
+    hcp\_id & 1b7aa17ea0  \\ \hline
+    occupation & Technology student \\ \hline
+    age & 27 \\ \hline
+    results & $[1,1,1,1,1,1,1,1,1,1]$ \\ \hline
+    calcTimes & $[12.047,7.115,8.022,9.283,10.544,8.807,9.925,9.78,7.11,8.187]$ \\ \hline
+\end{tabular}
+\caption{Experiment object after completing a trial, as stored in the database.}
+\label{db-obj}
+\end{table}
 
-\subsection{Results}
+\section{Results}
 \todo[inline]{Presentation of the results gather through the experiment (calculation time, failure rate etc. )}
 \todo[inline]{Different plots of the data. Not sure what and how to plot the different data??}
 
+This section will present the results of the conducted experiment and investigate the characteristics of the data recorded. The focus will be on the calculation times and failure rate, which both are important factors in the resulting usability of the scheme, as discussed in \autoref{sec:usability}.
+\par The observations made are not necessarily representative for all user because of the relatively small number of samples ($342$ , but it is still interesting to investigate the consequences of the results. Even if the results show that the scheme achieves a lower level of usability than what are considered acceptable, it might still function well for some users with the right amount of practice. The results and the consequences of these will be presented and discussed, and eventually a hypothesis about the usability of the scheme will be proposed. Especially for the failure rate it would be important to conduct a larger scale experiment to be able to say anything concrete, because a too high failure rate might actually render the scheme useless.
 
+\subsection{Calculation times}
 \begin{figure}
     \centering
     \begin{tikzpicture}
@@ -83,6 +100,7 @@ The experiment application will be similar in design to the Chrome extension pre
     \caption{Histogram showing the distribution of calculation times of all the recorded experiments. Sample size $342$ single digit challenges.}
     \label{histo-calctimes}
 \end{figure}
+
 
 \begin{figure}
     \centering
@@ -115,9 +133,50 @@ The experiment application will be similar in design to the Chrome extension pre
 \end{figure}
 
 
+\subsection{Failure rate.}
+Failure rate is a key characteristic of the scheme, as mentioned it is essential that a user is able to calculate passwords correctly for the scheme to function. How high the failure rate can be depends on how long passwords are used and how often a user can enter the wrong password without locking the account. A typical password protected site will allow a minimum of three strikes before the account is locked~\cite{10-strikes}. It is thus important that the probability of being "locked out" is small enough for it not to happen often, how often is of course subject to discussion.
+
+\begin{observation}\label{obs:failrate}
+    Average failure rate for all samples recorded in the experiment was measured to be $\tilde \lambda = 0.0584795321637$  approximately every one out of 17 singlet digit challenge was calculated wrong.
+\end{observation}
+This observation might not seem very unusual, but since a password consist of a sequence of calculation, it is required that the user calculate a given number of challenges consecutively without failure. It is thus more interesting to evaluate the probability of having at least one mistake in a complete password calculation sequence. It is also not unusual to enforce a password policy using a three-strike policy which will lock the account if three consecutive mistakes or made.  
 
 
-\subsection{Discussion}
+The probability of having at least one mistake in a length $l$ password given the failure rate $\lambda$ is given by
+\begin{equation}\label{eq:failrate}
+    P(fail) = 1 - (1 - \lambda)^l
+\end{equation}
+
+Next, the probability of getting the account locked given a three-strike policy with the same password and failure rate is 
+\begin{equation}\label{eq:lockrate}
+    P(lock) = ( 1 - (1 - \lambda)^l )^3
+\end{equation}
+
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    Password length $l$ & $3$ & $5$ & $10$ & $15$ \\ \hline \hline
+    $P(fail)$ & $0.1654$ & $0.2601$ & $0.4526$ & $0.5959$ \\ \hline
+    $P(lock)$ & $0.0045$ & $0.0176$ & $0.0927$ & $0.2107$ \\ \hline
+\end{tabular}
+\caption{Probability of having at least one mistake in a length $l$ password given failure rate $\lambda$.}
+\label{tbl:failrate}
+\end{table}
+ 
+\par \autoref{tbl:failrate} shows the probabilities of calculating a password wrong once and three times in a row. If a user wants to use a password of 15 characters, which is reasonable to assume since the scheme only produce digits, he will compute a faulty password nearly 60\% of the time. This limits the usability severely, since a user will more often than not, not be able to log in.
+\par The probability of actually locking the account by miscalculating three passwords in a row, is lower but not significantly. With the same failure rate and password length, a user would break the three-strike rule approximately one out of five login attempts.
+
+\par To illustrate this consequence in a extreme case, consider the \emph{very active} user from table \ref{users} in \autoref{sec:usability-model} which visits 10 different accounts every day. Such an user would eventually lock two accounts every day, which of course is not acceptable.
+
+\par Blocki et al.~\cite{hcp-blocki} suggests a tweak to the scheme with the purpose of decreasing the calculation time while still ensuring resistance against dictionary attacks. The suggestion is to memorize another mapping $w:\mathbb{Z}_{10} \rightarrow \{x\}$ with $x$ being one of the $10000$ most common English words. This way, Blocki argues, it would be sufficient with 3-5 challenges. With this assumption that 3-5 calculations are enough the scheme would function significantly better.
+\todo[inline]{ show example with active user with this. }
+
+
+\section{Discussion}
 \todo[inline]{Discuss how the results fit in the usability model, plots $\hat t$ for the different participants}
 \todo[inline]{What use cases would require a faster or slower calculation time?}
 \todo[inline]{}
+
+
