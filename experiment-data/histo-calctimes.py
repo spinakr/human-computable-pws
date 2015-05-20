@@ -12,19 +12,31 @@ with open('per-user-data.json') as data_file:
 
 #mu, sigma = 100, 15
 #x = mu + sigma*np.random.randn(10000)
-
+summ=0.0
 f= open('calcTimes.csv', "a")
 x=[]
 samplecount=0
+arr = []
+
 for sample in datas:
     for calcSample in sample['calcTimes']:
         x.append(calcSample)
-        if(calcSample > 2):
+        if(calcSample > 2 and calcSample<30):
+            
             f.write(str(calcSample) + "\n")
+            if samplecount > 20:
+                arr.append(calcSample)
             samplecount+=1
+            summ+=calcSample
 
+print(summ/samplecount)
 print(samplecount)
 #x = datas[0]['calcTimes']
+
+nparr = np.array(arr)
+print(np.std(nparr))
+print(np.mean(nparr))
+print(np.median(nparr))
 
 f.close();
 
