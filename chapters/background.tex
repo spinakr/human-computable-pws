@@ -18,7 +18,6 @@ How to measure the strength of passwords is a well known and discussed problem, 
 \begin{figure}
     \centering
     \begin{tabular}{c|c|c|c|c|c|}
-        \hline
     \multicolumn{6}{c}{Password length}\\\cline{2-6}
     \multirow{6}{*}{\begin{sideways}Character set\end{sideways}}
       &\cellcolor{Gray}&\cellcolor{Gray}4&\cellcolor{Gray}8&\cellcolor{Gray}12&\cellcolor{Gray}16\\\cline{2-6}
@@ -54,7 +53,9 @@ Internet services using password as authentication method typically have to stor
 \par The problem with only hashing the passwords is that the hash of a given password will be the same every time, making it possible to recognize known password hashes through the use of big table containing the hashes of known passwords. This way a hash might get cracked quite easily, see \autoref{atck} for details on such attacks. To circumvent this problem a service might add a random \emph{salt} to the password before hashing it. This way the hash of a user's password will be unique even for users with the same password. A salt is a randomly generated nonce, which is concatenated with the password before hashing, and then stored alongside the hash value in the user database. To authenticate a user the server concatenates the entered password with the salt from 
 
 \begin{example}
-    Let the following be the records of a user database, and $H$ a cryptographically strong hash function. \\
+Let the following be the records of a user database, and $H$ a cryptographically strong hash function.
+    \begin{table}[ht!]
+        \centering
     \begin{tabular}{|c|c|c|}
         \hline
         Username & Hash & Salt \\
@@ -64,8 +65,8 @@ Internet services using password as authentication method typically have to stor
         $\dots$ & $\dots$ & $\dots$ \\
         \hline
     \end{tabular}
-    \\
-  To authenticate, Bob would enter his password, $pwd=\text{ letno1in }$, which is sent to the server. The server then concatenate $pwd$ with the salt from Bob's entry in the database, and then apply the hash function to the result. If this is the same as the stored hash, Bob is authenticated.\\
+    \end{table}
+\par To authenticate, Bob would enter his password, $pwd=\text{ letno1in }$, which is sent to the server. The server then concatenate $pwd$ with the salt from Bob's entry in the database, and then apply the hash function to the result. If this is the same as the stored hash, Bob is authenticated.\\
  \centerline{\text{ If }   $H(letno1inwRaE3Z9oa6) = 3aaF4A4PxZ \rightarrow \text{Bob authenticated}.$  }
 
 \end{example}
