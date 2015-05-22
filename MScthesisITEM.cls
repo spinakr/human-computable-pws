@@ -243,7 +243,8 @@
 
 % Table of contents
 \setcounter{tocdepth}{2} % show also subsections in the table of content
-\renewcommand*{\sectionrefname}{Section~}
+\renewcommand*{\sectionrefname}{section~}
+\renewcommand*{\subsectionautorefname}{section~}
 
 % Bibliography
 \RequirePackage[square,numbers]{natbib}

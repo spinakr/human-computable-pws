@@ -46,11 +46,11 @@ function searchList(site, sites){
 
 
 
-function Site(name){
+function Site(name, siteclass){
     this.name = name;
     this.challenges = [];
 
-    for(var j=0; j<14; j++){
+    for(var j=0; j<siteclass; j++){
         this.challenges.push(randomChallenge()); 
     }
 }

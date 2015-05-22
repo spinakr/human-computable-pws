@@ -77,6 +77,7 @@ The extension implementing human computable passwords~[\autoref{ch:hcp}]  will b
     \item Add new sites to the system easily. 
     \item The displayed challenge should update seamlessly while typing the password.
     \item The user should be able to type his password directly in the password field of the active site.
+    \item When adding a new site to the system, the user should be able to classify the account(see \autoref{classification}), which will affect the number of single digit challenges created.
 \end{itemize}
 
 
@@ -158,14 +159,14 @@ The implementation follows the design described in the previous section, this se
 \lstinputlisting[caption=Background page., label=background, style=jsStyle, basicstyle=\small, frame=single]{code/background.js}
 
 \subsection{Demonstration}\label{demo}
-After launching the extension, as previously explained, the user is presented with the window show in figure \ref{launch-screen}. In this example the active site does not have a record in the user's challenge database, thus the "add new" dialog. By clicking the button, new challenges are generated and stored in the database as a new site. The site is automatically added with the current site domain as key together with randomly generated challenges. Next time the user visits the same page, challenges will appear. After adding a new site, it is the users responsibility to change the password of this site so it matches the challenges.
+After launching the extension, as previously explained, the user is presented with the window show in figure \ref{launch-screen}. In this example the active site does not have a record in the user's challenge database, thus the "add new" dialog. By clicking the button, new challenges are generated and stored in the database as a new site. The site is automatically added with the current site domain as key together with randomly generated challenges. Before adding the site, the user can specify which category he rates the site in (low, medium or high), depending this choice, 6, 10 or 15 challenges will be generated. Next time the user visits the same page, challenges will appear. After adding a new site, it is the users responsibility to change the password of this site so it matches the challenges.
 
 \par Figures \ref{ch-screens}a-d shows how a user would use the extension when logging in to a site. When launching it, the system receives the current sites domain and loads the first challenge corresponding to that site. The user then calculates the first character using the challenges displayed. When this is entered in the password field, new challenges appear until the whole password is calculated. 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{new-site-dialog} 
-    \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges. After clicking the "Add site"-button, the next view shows the generated challenges. The user should then calculate the response and change the password of the site to match it.}
+    \includegraphics[width=\textwidth]{new-site-dialog2} 
+    \caption{Screen as seen by the user after launching the extensions while on a page without stored challenges. After clicking the "Add site"-button, the view will update, showing the newly generate challenges. The user should then calculate the response and change the password of the site to match it. Next time the same user wants to log in to the site, he will calculate the response again as seen in figure~\ref{ch-screens}.}
     \label{launch-screen}
 \end{figure}
 

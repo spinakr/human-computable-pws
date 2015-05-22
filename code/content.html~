@@ -28,22 +28,13 @@
             <hr>
 	    <form name="siteClass" class="siteClass">
                 <label for="radio1">Low
-                    <input type="radio" 
-                           ng-model="siteClass" 
-                           value=6 
-                           id="radio1">
+                    <input type="radio" ng-model="siteClass" value=6 id="radio1">
                 </label>
                 <label for="radio2">Med
-                    <input type="radio" 
-                           ng-model="siteClass" 
-                           value=10 
-                           id="radio2">
+                    <input type="radio" ng-model="siteClass" value=10 id="radio2">
                 </label>
 		<label for="radio3">High 
-                    <input type="radio" 
-                           ng-model="siteClass" 
-                           value=15 
-                           id="radio3">
+                    <input type="radio" ng-model="siteClass" value=15 id="radio3">
                 </label>
             </form> 
             <button ng-click="newSite()" 
@@ -51,7 +42,6 @@
                     ng-show="true" >Add site</button> 
         </div>
     </div>
-<div ng-hide="newSiteButton">
 <table 
     align="center" class="challenges" 
     ng-init="site = user.sites[user.sites.indexOf(selectedSite)]">
@@ -117,5 +107,5 @@
 
 </div>
 </div>
-</div>
+
 </div>

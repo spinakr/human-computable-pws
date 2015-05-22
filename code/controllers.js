@@ -5,10 +5,11 @@ angular.module('human-computable-pws.controllers', [])
     $scope.user = "";
     $scope.pw=0;
     $scope.selectedSite=null;
-   
+    $scope.siteClass ='10'; 
+
     //function adding new site to the user
     $scope.newSite = function(){
-        var newSite = new Site($scope.url);
+        var newSite = new Site($scope.url, $scope.siteClass);
         $scope.user.sites.push(newSite);
         $scope.selectedSite = newSite;
         chromeStorage.set("user", $scope.user);
