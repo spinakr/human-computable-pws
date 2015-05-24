@@ -15,7 +15,7 @@ Modern computer users shift towards doing more and more work through their web b
 %The extension core consist of the actual application interface visible to the user as well as long running background jobs and business logic. The background page can be used to spawn panels or popups, and has access to browser APIs.  The extensions is activated through a icon in the browser navbar as seen in \autoref{extension-ux}. Clicking the icon typically spawns a popup or a panel to interact with the user. In addition to the core, each extensions can have content scripts which has access to the content of the current active web page, and can monitor and alter \gls{dom} of this. 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
    \fbox{\includegraphics[width=\textwidth]{chrome-extension-architecture} }
     \caption{Chrome extension architecture.}
     \label{extension-architecture}
@@ -48,7 +48,7 @@ This extension has specified access to the bookmarks API, chrome local storage a
 \par In addition to this the core has access to the extension APIs, these are special-purpose interfaces providing additional features such as alarms, bookmarks, cookie and file storage. The APIs are made available through the manifest file and only those specified there can be used. \autoref{extension-ux} illustrates the interaction between the background page, content scripts, panels and active web page. The information flow starts by clicking the extension's icon in the navigation bar which launches the background page spawning a panel in the browser. A content script is injected in the current web site (google.no in the example), the script now have access to the DOM of this site and can communicate with the background which in turn can update the panel. 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \fbox{ \includegraphics[width=\textwidth]{chrome-extension-ux} }
     \caption{Chrome extensions browser action and content scripts.}
     \label{extension-ux}
@@ -86,7 +86,7 @@ The front-end is built and updated using AngularJS\footnote{AngularJS, \url{http
 \par The \emph{view}s in angular is templates written entirely in HTML, making it easy to read and update. The \emph{controller} contains all the business logic used by the view. The views and controllers are connected using a shared object called \emph{\$scope}, variables or functions on this object is usually defined in the controller and accessed by the view by using double curly brackets in the view (e.g. \{\{name\}\} to access the name variable on \$scope). Figure \ref{angular-data-binding} shows how scope is used to share variables between the controller and the view. 
 See "Angular Essentials - Rodrigo Branas"\cite{angularjs-book} for a step-by-step introduction to AngularJS.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \includegraphics[width=\textwidth]{angular-data-binding} 
     \caption{Angular data binding with controller, view and scope. Figure from AngularJs developer guide.}
     \label{angular-data-binding}
@@ -107,16 +107,16 @@ Content scripts are javascript files running in the context of the active web pa
 \subsection{User interface}
 The user interface will be very simple, there will be two possible screens displayed to the user. Either, challenges associated to the current page will be shown, or a dialog asking the user to generate new challenges. The most important feature of the user interface is that it will automatically update depending on what site the user is currently browsing, and display the correct challenge when typing passwords. Wireframes illustrating the page schematics of the extension are shown in figures \ref{add-new-screen} and \ref{challenge-screen}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{wireframe} 
         \caption{Screen seen by the user when launching the extension while visiting a page that is not stored in the system.}
         \label{add-new-screen}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{wireframe2} 
         \caption{Screen seen by the user when loading a site with challenges stored in the system. }
@@ -133,9 +133,9 @@ The implementation follows the design described in the previous section, this se
 \par \autoref{class-diagram} shows the complete architecture of the system.
  The content script attach an event listener to the password field of the active site. If the content of the password field changes, the script sends a message using chrome message passing containing the current length of the password. The controller receives the new password length from the content script, and update the challenges displayed to the user. When the user visits a new site, the url is sent to the controller, which then updates the view with new challenges corresponding to that site.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \fbox{ \includegraphics[width=\textwidth]{class-diagram} }
+    \fbox{ \includegraphics[width=0.9\textwidth]{class-diagram} }
     \caption{Class diagram of the human computable passwords chrome extension.}
     \label{class-diagram}
 \end{figure}
@@ -190,14 +190,14 @@ After launching the extension, as previously explained, the user is presented wi
         \centering
         \includegraphics[width=\textwidth]{ch-screen3} 
         \caption{}
-        \label{challenge-screen2}
+        \label{challenge-screen3}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{ch-screen4} 
         \caption{}
-        \label{challenge-screen2}
+        \label{challenge-screen4}
     \end{subfigure}
     \caption{Challenge screens as seen by the user while entering password. The challenges update when the user enter a new character in the password field.}
     \label{ch-screens}

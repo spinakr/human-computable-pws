@@ -25,6 +25,12 @@
 \usepackage{color, colortbl}
 
 
+\usepackage[nonumberlist,acronym,xindy]{glossaries}
+
+\loadglsentries{glossary}
+\makeglossary
+
+
 \newcommand\diag[4]{%
   \multicolumn{1}{p{#2}|}{\hskip-\tabcolsep
     $\vcenter{\begin{tikzpicture}[baseline=0,anchor=south west,inner sep=#1]
@@ -43,8 +49,6 @@
 \DeclareGraphicsExtensions{.pdf,.jpg, .png}
 \graphicspath{{./figs/}}
 
-\loadglsentries{glossary}
-\makeglossaries
 
 
 
@@ -115,10 +119,12 @@
 %
 %% include if relevant
 %\printglossary[title=List of Symbols, style=long]
-%\glsaddall[]
-%\printglossary[title=List of Acronyms,type=\acronymtype] % prints just the list of acronyms
-
-%\cleardoublepage
+\glsaddall[]
+\printglossary[title=List of Abbreviations,type=\acronymtype] % prints just the list of acronyms
+\addcontentsline{toc}{chapter}{Abbreviations}
+\cleardoublepage
+\printglossaries
+\cleardoublepage
 
 \pagenumbering{arabic}
 \pagestyle{ruled}

@@ -91,7 +91,7 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 \paragraph{Cracking} requires the attacker to go through several steps. First acquiring the hash of a user account or a whole file of hashes for a site. Next, one would try to find a sequence of strings yielding the same hash as the actual password. Cracking if much harder if the server uses salts to randomize the hashes.
 \par \emph{ Rainbow tables }~\cite{rainbow-tables} is a technique employed by attackers to speed up this process. Rainbow tables are precomputed table of hashes, allows the attacker to compute a set of hashes once and use these values several times, thus providing a space-time trade-off. This involves using more space, since all the computed hash values would have to be stored somewhere, but allowing a much shorter computation time to brute-force a hash. The technique stores chains of hashes as shown in figure ~\ref{rainbow-table}, storing only the first and last value of the chain. The attacker then searches for a given hash in the set of end points, if no match is found the hash function is applied and a new search conducted. This process continues, until a match is found, the plain text is then computed from the start value of the chain, applying the hash function the same amount of times it took to find a match in the chain. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \includegraphics[width=\textwidth]{rainbow-table}
     \caption{Rainbow table}
     \label{rainbow-table}
@@ -129,7 +129,7 @@ It is clear that the three former schemes are much easier to use than the last o
 
 \paragraph{Built-in browser password managers.} Most modern browsers provide "remember password" functions. These functions act similar to software like LastPass, by storing the users passwords in some fashion, then reproduce it when login in. 
 
-These kinds of systems and applications requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. Software aiding the user by storing passwords often also provide autofill-functions, automatically filling in the username and password of the associated site. Silver et al. \cite{pw-managment-attacks} propose attacks exploiting these autofill functions to extract passwords from the password manager, the most basic example attack is shown in \autoref{rouge-wifi}. Despite of the obvious weaknesses in many password managers, they still argue that password managers can strengthen credential security if implemented correctly.  
+These kinds of systems and applications requires the user to trust that the implemented systems are secure enough to prevent adversaries, both insiders and outsiders, stealing credentials stored by the services. Software aiding the user by storing passwords often also provide autofill-functions, automatically filling in the username and password of the associated site. Silver et al. \cite{pw-managment-attacks} propose attacks exploiting these autofill functions to extract passwords from the password manager, the most basic example attack is shown in example \ref{rouge-wifi}. Despite of the obvious weaknesses in many password managers, they still argue that password managers can strengthen credential security if implemented correctly.  
 \begin{example}\label{rouge-wifi}
     Consider a user connecting to a open wifi at a coffee bar or another public place. It is not unusual to present the user with a "landing page" asking for approval of some usage agreement. The rouge wifi provider could include multiple iframes\footnote{\url{http://www.w3schools.com/tags/tag_iframe.asp}} pointing to the login pages of common sites the user probably have stored credentials for. See \autoref{rouge-wifi-page}. By injecting javascript in the iframes the attacker can extract all the usernames and passwords autofilled by the password manager. Note that the iframes displayed in the figure are not visible to the user, to him it looks like a standard landing/welcome page. Silver et al. \cite{pw-managment-attacks} claim that six out of ten password managers were vulnerable to this simple attack.
 
@@ -160,8 +160,8 @@ A rehearsal schedule as defined in definition \ref{rehearsal-schedule} is said t
 \paragraph{Visitation schedule \cite{hcp-blocki}} is a series of numbers $\tau^i_0 < \tau^i_1 < ...$ representing the points in time when a user visits account $A_i$. This schedule cannot be known exactly so it is modeled using a random process with a parameter $\lambda_i$ based on the average time between visits to account $A_i$ - $E[\tau^i_{j+1} - \tau^i_j]$.
 \par A rehearsal requirement can also be satisfied naturally if a user visits an account using the object $\hat c$ during the interval $[ t^{\hat c}_i, t^{\hat c}_i+1)$, as defined in definition \ref{natural-rehearsal},
 
-\begin{definition}\label{natural-rehearsal}
-    A rehearsal requirement $[ t^{\hat c}_i, t^{\hat c}_i+1)$ is naturally satisfied by a visitation schedule $\tau^i_0 < \tau^i_1 <\dots$ if for any $j \in [m]$ and $k \in \mathbb{N}$ so that $\hat c \in c_j$ and $\tau^j_ki \in [ t^{\hat c}_i, t^{\hat c}_i+1)$. Let \\
+\begin{definition}\label{natural-rehearsal}\cite{hcp-blocki}
+     A rehearsal requirement $[ t^{\hat c}_i, t^{\hat c}_i+1)$ is naturally satisfied by a visitation schedule $\tau^i_0 < \tau^i_1 <\dots$ if for any $j \in [m]$ and $k \in \mathbb{N}$ so that $\hat c \in c_j$ and $\tau^j_ki \in [ t^{\hat c}_i, t^{\hat c}_i+1)$. Let \\
     \begin{large}
     \centerline{ $ER_{t,\hat c} = \vert\{ i \vert t^{\hat c}_{i+1} \le t \wedge \forall j ,k.(\hat c \notin c_j \wedge \tau^j_k \notin [t^{\hat c}_i, t^{\hat c}_i))\} \vert$ }
     \end{large}
@@ -182,7 +182,7 @@ The core of the model is that usability depends on rehearsal required to remembe
     \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i s}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
 \end{requirement}
 
-The difference between these two assumptions about human memory is that CR assumes that the user have to keep rehearsing every $s$ days for as long as he wants to make sure to not forget anything. This might be too pessimistic since it is reasonable to assume that it gets easier to rehearse for each rehearsal. This is what ER assumes, if a relation has been rehearsed $i$ times it does not have to be rehearsed again in $2^{i s}$ days. ER is the most intuitive assumption to make and is back up by experiments on how the human brain forgets over time \cite{forgetting, human memory}.
+The difference between these two assumptions about human memory is that CR assumes that the user have to keep rehearsing every $s$ days for as long as he wants to make sure to not forget anything. This might be too pessimistic since it is reasonable to assume that it gets easier to rehearse for each rehearsal. This is what ER assumes, if a relation has been rehearsed $i$ times it does not have to be rehearsed again in $2^{i s}$ days. ER is the most intuitive assumption to make and is backed up by experiments on how the human brain forgets over time \cite{forgetting, human-memory}.
 
 \par 
 \subsubsection{Visitation Schedule}
