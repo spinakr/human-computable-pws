@@ -127,7 +127,7 @@
 \theoremstyle{atheorem} 
 \numberwithin{equation}{chapter}
 
-\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{theorem}{theorem}[chapter]
 \newtheorem{corollary}[chapter]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{lemma}{Lemma}
