@@ -5,7 +5,7 @@ from pprint import pprint
 from pylab import polyfit, poly1d
 from scipy.stats import linregress
 
-with open('all-data.json') as data_file:
+with open('usr-data.json') as data_file:
     datas = json.load(data_file)
 
 
