@@ -34,8 +34,11 @@ print(samplecount)
 #x = datas[0]['calcTimes']
 
 nparr = np.array(arr)
+print("STD")
 print(np.std(nparr))
+print("MEAN")
 print(np.mean(nparr))
+print("MEDIAN")
 print(np.median(nparr))
 
 f.close();

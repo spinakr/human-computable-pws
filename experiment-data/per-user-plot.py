@@ -5,7 +5,7 @@ from pprint import pprint
 from pylab import polyfit, poly1d
 from scipy.stats import linregress
 
-with open('usr-data.json') as data_file:
+with open('usr50-data.json') as data_file:
     datas = json.load(data_file)
 
 
@@ -16,7 +16,7 @@ with open('usr-data.json') as data_file:
 #x = mu + sigma*np.random.randn(10000)
 slopeSum = 0
 slopeCount=0
-
+arr=[]
 for sample in datas:
     count=0
     x=[]
@@ -26,6 +26,7 @@ for sample in datas:
         x.append(count)
         y.append(calcSample)
         count+=1
+        arr.append(calcSample)
 
     plt.scatter(x,y)
 
@@ -36,6 +37,21 @@ for sample in datas:
 
     slopeSum+= linregress(x,y)[0]
     slopeCount+=1
+    
+    pprint (vars(fit_fn))
+    print("COUNT: ")
+    print(count)
+    print("FAILURERATE")
+    print(1-sample['failAvg'])
+    nparr = np.array(arr)
+    print("STD")
+    print(np.std(nparr))
+    print("MEAN")
+    print(np.mean(nparr))
+    print("MEDIAN")
+    print(np.median(nparr))
+    print("------------------------------------------------------------")
+
 
 
 print "Average slope :   " + str(slopeSum/slopeCount)

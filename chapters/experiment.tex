@@ -1,8 +1,8 @@
 \chapter{Usability Experiment}\label{ch:experiment}
-This chapter presents the design and execution of an experiment trying to measure  the performance of the human computable password management scheme. The experiment is designed as a web application implementing the scheme, allowing participants to test how the scheme would work in practice while measuring how fast the computation is performed. The application thus acts as both a demonstration app and a tool for gathering performance data. It has four sections designed to help the participants understand the scheme and get familiar with the computation technique. First, a demonstration video is shown explaining how to compute a password from a challenge, then users are asked to enter some demographic data. Next is the practice section, where users are supposed to practice doing the calculation until feeling comfortable solving challenges without error. Finally comes the experiment part, where the calculations are timed and correctness monitored. After finishing the calculations user submit the data and can chose to continue doing more experiments now, or later.
+This chapter presents the design and execution of an experiment trying to measure  the performance of the HCP scheme. The experiment is designed as a web application implementing the scheme, allowing participants to test how the scheme would work in practice while measuring how fast the computation is performed. The application thus acts as both a demonstration app and a tool for gathering performance data. It has four sections designed to help the participants understand the scheme and get familiar with the computation technique. First, a demonstration video is shown explaining how to compute a password from a challenge, then users are asked to enter some demographic data. Next is the practice section, where users are supposed to practice doing the calculation until feeling comfortable solving challenges without error. Finally comes the experiment part, where the calculations are timed and correctness monitored. After finishing the calculations user submit the data and can chose to continue doing more experiments now, or later.
 \section{Experiment Objective}
 The goal of the experiment is to measure how hard it is for a user to learn the scheme, i.e. how fast and reliable users do the calculations. The experiment measures the calculation times of different users, and also monitor their progression after several trials. Users should also be able to calculate passwords without too many mistakes. The failure rate is maybe the most important variable to measure; if a user averages more than one mistake for each password calculated the scheme would not work in practice, since most passwords calculated would be wrong. 
-\par It is important to note that this project does not see the human computable password management scheme as a replacement for the widely used standard password managers. It is regarded as a solution for users interested in a secure and reliable way of keeping track of strong password, without having to trust a password management service or application. This experiment thus tests if it is even possible, for a user willing to go through the trouble of learning a secret mapping, to use the scheme as an everyday solution.
+\par It is important to note that this project does not see the HCP scheme as a replacement for the widely used standard password managers. It is regarded as a solution for users interested in a secure and reliable way of keeping track of strong password, without having to trust a password management service or application. This experiment thus tests if it is even possible, for a user willing to go through the trouble of learning a secret mapping, to use the scheme as an everyday solution.
 
 \par The objectives of the experiment can be summarized as the following.
 \begin{itemize}
@@ -79,18 +79,38 @@ This section presents the results of the conducted experiment and investigate th
 \par The observations made are not necessarily representative for all users, because of the relatively small number of samples ($467$ single digit challenges), but it is still interesting to investigate the consequences of the results. Even if the results show that the scheme achieves a lower level of usability than what are considered acceptable, it might still function well for some users with the right amount of practice. The limitations of the experiment is discussed, in addition to results and the consequences of these.
 
 \subsection{Calculation times.}
-How fast a user is able to calculate the response to a single digit challenge is a concrete measure of the usability of the scheme. Figure \ref{histo-calctimes} shows the distribution of calculation times of all the experiment samples, the calculated average off all the $467$ trials are $10.922$ seconds. The median value is $10.104$ with standard deviation of $3.64$ which also can be observed in the figure. 
+How fast a user is able to calculate the response to a single digit challenge is a concrete measure of the usability of the scheme. Figure \ref{histo-calctimes} shows the distribution of calculation times of all the experiment samples, the calculated average off all the $467$ trials are $10.296$ seconds. The median value is $9.406$ with standard deviation of $3.64$ which also can be observed in the figure. 
 \par Recall \autoref{conjecture1} from \autoref{human-func}. The function $f$ (see definition \ref{fo-function}) used in this project is $(P,9,3)$-computable. The conjecture then defines the variable $\gamma_H$ for user $H$ as {\Large $\gamma_H = \frac{\hat t}{9}$}. 
-\par The average $\gamma$ of all the participants are $\tilde \gamma = \frac{10.922}{9} = 1.214$. This is slightly higher than the $7.5$ seconds ($\gamma_H \le 1 $) Blocki~\cite{hcp-blocki} predict that users with moderate mathematical backgrounds should achieve. It is still not unreasonably high, and should not be a direct hindrance. Calculating a 10 character password would for example take $11 \cdot 10 = 110$ seconds, just short of 2 minutes, to calculate, 15 character would close in on 3 minutes. On average spending 2-3 minutes on calculating a password might seem like a lot, but a user concerned about the security of his accounts, might be willing to make this trade-off. Especially if users are worried about putting passwords in the hands of a online service to store persistently (e.g. \emph{lastpass.com}), might be willing to put quite some time into calculating passwords instead.
-\par It is also relevant to study the evolution of each user in terms calculation times. Figure \ref{scatter-regression} illustrates the average calculation time for each $i$th trail per user. $i=1$ represent the average of the first calculation done by each user, $i=2$ the second calculation etc. The figure clearly illustrates that the averages decrease with practice. This could have been expected, since users will be more and more familiar with the calculation procedure for each trial. The consequence of this observation is that the average calculation time, and consequently $\gamma$, would be significantly lower if the participants got more practice with the scheme before their results was recorded. Each participant averaged $30$ samples each, so it is not feasible to e.g. calculate the average after removing the 20 first calculations from each participant, as this would leave very few trials. The important goal of the experiment is though not to find an accurate average calculation time, but to verify that $\gamma_H \le 1$ is a reasonable for most users. It seems that the average most likely is somewhere between 9 and 11, depending on how long users have been using the scheme, which is not severely limiting.
+\par The average $\gamma$ of all the participants are $\tilde \gamma = \frac{10.104}{9} = 1.227$. This is slightly higher than the $7.5$ seconds ($\gamma_H \le 1 $) Blocki~\cite{hcp-blocki} predicts that users with moderate mathematical backgrounds should achieve. It is still not unreasonably high, and should not be a direct hindrance. Calculating a 10 character password would for example take $10 \cdot 10 = 100$ seconds, just above $1.5$ minutes, to calculate, 15 character would take $2.5$ minutes. On average spending 2-3 minutes calculating a password might seem like a lot, but a user concerned about the security of his accounts, might be willing to make this trade-off. Especially if users are worried about putting passwords in the hands of a online service to store persistently (e.g. \emph{lastpass.com}), might be willing to put quite some time into calculating passwords instead.
+\par It is also relevant to study the evolution of each user in terms calculation times. Figure \ref{scatter-regression} illustrates the average calculation time for each $i$th trail per user. $i=1$ represent the average of the first calculation done by each user, $i=2$ the second calculation etc. The figure clearly illustrates that the averages decrease with practice. This could have been expected, since users will be more and more familiar with the calculation procedure for each trial. The consequence of this observation is that the average calculation time, and consequently $\gamma$, would be significantly lower if the participants got more practice with the scheme before their results was recorded. Each participant averaged $33$ samples each, so it is not feasible to e.g. calculate the average after removing the 20 first calculations from each participant, as this would leave very few trials. The important goal of the experiment is though not to find an accurate average calculation time, but to verify that $\gamma_H \le 1$ is a reasonable for most users. It seems that the average most likely is somewhere between 9 and 11, depending on how long users have been using the scheme, which is not severely limiting.
+\par Figure \ref{user-regression} and table \ref{tbl:bestuser} shows the 7 participants with the most samples, the same effect can be observed, all except from one participant have a downward going trend (see SCT in table \ref{tbl:bestuser}).
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+     SMP & MCT & SDCT & SCT & MFR \\ \hline \hline
+    $72$ & $9.02$ & $2.38$ & $-0.015$ & $0.0695$\\\hline
+    $36$ & $10.06$ & $3.24$ & $0.038$ & $0.1944$\\\hline
+    $72$ & $9.62$ & $2.79$ & $-0.373$ & $0.0278$\\\hline
+    $45$ & $10.33$ & $3.33$ & $-0.115$ & $0.044$\\\hline
+    $45$ & $10.06$ & $3.31$ & $-0.068$ & $0.089$\\\hline
+    $36$ & $9.89$ & $3.34$ & $-0.143$ & $0.083$\\\hline
+    $45$ & $9.88$ & $3.33$ & $-0.023$ & $0.022$\\\hline
+
+\end{tabular}
+\caption{Table of the 7 best participants. SMP=sample size, MCT=mean calculation time, SDCT=standard deviation of calculation time, SCT=slope calculation time, MFR=mean failure rate. }
+\label{tbl:bestuser}
+\end{table}
+
 
 \begin{figure}
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=\textwidth, xlabel=Calculation times in seconds. ,ybar, ymin=0, yticklabels={,,}]
+        \begin{axis}[width=\textwidth, xlabel=Calculation times in seconds. ,ybar, ymin=0]
             \addplot +[
                     hist = {
-                        bins=20,
+                        bins=25,
                         data min=3,
                         data max=20
                     },
@@ -135,6 +155,68 @@ How fast a user is able to calculate the response to a single digit challenge is
 \end{figure}
 
 
+\begin{figure}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[
+                enlargelimits=false,
+                xlabel=Trial number: $i$,
+                ylabel = Calculation time in seconds.,
+                width=\textwidth,
+                ymin=4,
+                ymax=16
+        ]
+        \addplot[
+            domain=0:72,
+            samples=3,
+            thick,
+            color=red!50
+        ]{9.572-0.015535*x};
+        \addplot[
+            domain=0:36,
+            samples=3,
+            thick,
+            color=green!50
+        ]{11.46978+0.03817*x};
+        \addplot[
+            domain=0:72,
+            samples=3,
+            thick,
+            color=yellow!50
+        ]{10.29454-0.037335*x};
+        \addplot[
+            domain=0:45,
+            samples=3,
+            thick,
+            color=blue!50
+        ]{15.6977-0.1146*x};
+        \addplot[
+            domain=0:45,
+            samples=3,
+            thick,
+            color=purple!50
+        ]{10.15532-0.06755*x};
+        \addplot[
+            domain=0:36,
+            samples=3,
+            thick,
+            color=violet!50
+        ]{11.12582-0.143408*x};
+        \addplot[
+            domain=0:45,
+            samples=3,
+            thick,
+            color=cyan!50
+        ]{9.04245-0.023411*x};
+    \end{axis}
+
+\end{tikzpicture}
+\caption{Regression lines for the 7 participants with the most samples.}
+\label{user-regression}
+\end{figure}
+
+
+
 \subsection{Failure rate.}
 Failure rate is a key characteristic of the scheme. As mentioned it is essential that a user is able to calculate passwords correctly for the scheme to function. How high the failure rate can be depends on how long passwords are used and how often a user can enter the wrong password without locking the account. A typical password protected site will allow a minimum of three strikes before the account is locked~\cite{10-strikes}. It is thus important that the probability of being "locked out" is small enough for it not to happen often, how often is of course subject to discussion.
 
@@ -174,7 +256,7 @@ Next, the probability of getting the account locked given a three-strike policy 
 
 \par As discussed in \autoref{improving-usab} (and as implemented in \autoref{app}), the password length needed for different accounts may vary. By using shorter password for noncritical accounts, and only generating long passwords for the most critical, the average password length will be much lower than in the examples above. The scheme could then be tweaked by users to fit specific needs, instead of requiring 10 or 15 characters in all passwords generated. For less sensitive accounts users may have passwords of lengths 5, which would make for a mistake in approximately every 4th password, and only locking an account every 57th login attempt. This way users can calculate passwords with significantly less effort and lower failure rates. 
 
-\par The experiment did not find any significant correlation between 
+\par The experiment did not find any significant correlation between failure rates and calculation times. Users calculating fast does not have a higher failure rate than slower users, which some might expect. 
 
 %\subsection{Improvement Measures.}
 %\par Blocki et al.~\cite{hcp-blocki} suggests a tweak to the scheme with the purpose of decreasing the calculation time while still ensuring resistance against dictionary attacks. The suggestion is to memorize another mapping $w:\mathbb{Z}_{10} \rightarrow \{x\}$ with $x$ being one of the $10000$ most common English words. Then after computing $f(\sigma(C))$ the user would apply $w$ giving the corresponding word to the digit. The point of doing this is to save time when calculating, but it also solves the problem with high failure rates. Blocki argues, it would be sufficient with 3-5 challenges. With this assumption that 3-5 calculations are enough, the scheme would function significantly better. 
