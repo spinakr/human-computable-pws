@@ -107,7 +107,7 @@ How fast a user is able to calculate the response to a single digit challenge is
 \begin{figure}
     \centering
     \begin{tikzpicture}
-        \begin{axis}[width=\textwidth, xlabel=Calculation times in seconds. ,ybar, ymin=0]
+        \begin{axis}[width=\textwidth, xlabel=Calculation times in seconds. ,ybar, ymin=0, ylabel=Number of single digit challenges.]
             \addplot +[
                     hist = {
                         bins=25,
@@ -119,7 +119,7 @@ How fast a user is able to calculate the response to a single digit challenge is
 
         \end{axis}
     \end{tikzpicture}
-    \caption{Histogram showing the distribution of calculation times of all the recorded experiments. Sample size $342$ single digit challenges.}
+    \caption{Histogram showing the distribution of calculation times of all the recorded experiments. Sample size $467$ single digit challenges.}
     \label{histo-calctimes}
 \end{figure}
 
@@ -211,7 +211,7 @@ How fast a user is able to calculate the response to a single digit challenge is
     \end{axis}
 
 \end{tikzpicture}
-\caption{Regression lines for the 7 participants with the most samples.}
+\caption{Regression lines for the 7 participants with the most samples. A clear downward sloping trend in terms of calculation time is observed.}
 \label{user-regression}
 \end{figure}
 
