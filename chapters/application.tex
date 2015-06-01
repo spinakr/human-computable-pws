@@ -207,7 +207,6 @@ After launching the extension, as previously explained, users are presented with
 \end{figure}
 
 
-\newpage
 
 \subsubsection{Data flow}\label{data-flow}
 Figure \ref{flow-chart} illustrates the life cycle of the application. When the user visit a site, an event is triggered and caught by the content script, which in turn message the controller about the newly loaded site. The controller then tries to load challenges for that site from the storage; if there is a record, the view is updated with the first challenge, if not the ``add new''-dialog is loaded. Next event is triggered when the user enters a character in the password field, on receiving notice from the content script the controller updates the view with a new challenge depending on the length of the password. This then goes on until the user has entered the entire password, eventually closing the extension panel.
