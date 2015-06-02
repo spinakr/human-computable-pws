@@ -109,7 +109,7 @@
   {\itshape}%                             % Body font
   {}%                                     % Indent amount
   {\bfseries}%                            % Theorem head font
-  {}%                                     % Punctuation after theorem head
+  { }%                                     % Punctuation after theorem head
   { }%                                    % Space after theorem head, ' ', or \newline
   {\thmname{#1}\thmnumber{ #2. }\thmnote{ #3}}%  % Theorem head spec (can be left empty, meaning `normal')
 

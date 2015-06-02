@@ -154,85 +154,87 @@ These kinds of systems and applications require the users to trust that the impl
 
 
 
-\section{Usability Model}\label{sec:usability-model}
-This section presents the usability model defined by Blocki et al. \cite{naturally-rehearsing}, which predicts the efforts required of users to keep a set of secrets memorized without forgetting it. It will be presented in the context of password management schemes, in particular the HCP scheme relied on in this project. The model will later be used to analyze the usability of the scheme and related applications.
-
-\subsection{Definitions}
-A password management scheme generates and keeps track of passwords $p_1, \dots, p_m \in P$ for all $m \in A$ accounts of users. $P$ is all possible passwords. Let $(\hat c, \hat a)$ represent an association between an object (e.g. letter or picture) and a related  mapping (typically a digit between 1 and 10). Users have to rehearse the association $(\hat c, \hat a)$ to avoid forgetting it. Next two schedules are defined defining how often users have to rehearse to not forget a association, and how often they visit an account.
-
-\begin{definition}\label{rehearsal-schedule}
-    \cite{hcp-blocki} A rehearsal schedule for an object-mapping association $(\hat c, \hat a)$ is a series of points in time $t^{\hat c}_0 < t^{\hat c}_1 < \dots$. A rehearsal requirement for each $i \ge 0$ says that the object-mapping association pair must be rehearsed at least once in the time interval $[ t^{\hat c}_i, t^{\hat c}_i+1) = \{x \in \mathbb{R} \vert t^{\hat c}_i \le x < t^{\hat c}_{i+1} \} $.
-\end{definition}
-A rehearsal schedule as defined in definition \ref{rehearsal-schedule} is said to be sufficient if a user can keep an association in his memory without forgetting by following the schedule.
-
-\paragraph{Visitation schedule \cite{hcp-blocki}} is a series of numbers $\tau^i_0 < \tau^i_1 < ...$ representing the points in time when a user visits account $A_i$. This schedule cannot be known exactly so it is modeled using a random process with a parameter $\lambda_i$ based on the average time between visits to account $A_i$ - $E[\tau^i_{j+1} - \tau^i_j]$.
-\par A rehearsal requirement can also be satisfied naturally if a user visits an account using the object $\hat c$ during the interval $[ t^{\hat c}_i, t^{\hat c}_i+1)$, as defined in definition \ref{natural-rehearsal},
-
-\begin{definition}\label{natural-rehearsal}\cite{hcp-blocki}
-     A rehearsal requirement $[ t^{\hat c}_i, t^{\hat c}_i+1)$ is naturally satisfied by a visitation schedule $\tau^i_0 < \tau^i_1 <\dots$ if for any $j \in [m]$ and $k \in \mathbb{N}$ so that $\hat c \in c_j$ and $\tau^j_ki \in [ t^{\hat c}_i, t^{\hat c}_i+1)$. Let \\
-    \begin{large}
-    \centerline{ $ER_{t,\hat c} = \vert\{ i \vert t^{\hat c}_{i+1} \le t \wedge \forall j ,k.(\hat c \notin c_j \wedge \tau^j_k \notin [t^{\hat c}_i, t^{\hat c}_i))\} \vert$ }
-    \end{large}
-    denote how many extra rehearsals required, that are \emph{not} satisfied by the visitation schedule, during time time interval $[0,t]$
-\end{definition}
 
 
-
-
-\subsection{Model}
-The core of the model is that usability depends on rehearsal required to remember all passwords, relative to the visitation schedule of the specific user. How hard it is for any given user to remember a relation between object may vary from person to person depending on mnemonic technique and genetic conditions. This is adjusted for in the model by the constant $s$ representing the combined strength of mnemonic technique and the memory of a user. Next, consider two different rehearsal requirements specifying what is needed to maintain a memory.
-
-\begin{requirement}\label{CR}
-    \textbf{ Constant Rehearsal Assumption (CR)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i) = i s$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
-\end{requirement}
-
-\begin{requirement}\label{ER}
-    \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i s}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
-\end{requirement}
-
-The difference between these two assumptions about human memory is that CR assumes that users have to keep rehearsing every $s$ days for as long as they want to make sure to not forget anything. This might be too pessimistic since it is reasonable to assume that it gets easier to rehearse for each rehearsal. This is what ER assumes, if a relation has been rehearsed $i$ times it does not have to be rehearsed again in $2^{i s}$ days. ER is the most intuitive assumption to make and is backed up by experiments on how the human brain forgets over time \cite{forgetting, human-memory}.
-
-\par 
-\subsubsection{Visitation Schedule}
-Every user will eventually have a unique visitation schedule which will vary greatly from user to user. The model uses a Poisson process to model the visitations schedule for a given site $A_i$, with parameter $\lambda_i$. The average time between visits,$\frac{1}{\lambda_i}$, is assumed to be known for each visitation schedule. A site visited every day would yield $\lambda_i = 1$ day, and $\lambda_i=\frac{1}{365}$ days for a site visited annually. 
-\par Next, the model uses four different types of users which may have accounts of 5 different account types based on visitation frequency. The users can be: very active, typical, occasional or infrequent, while an account can be visited daily, every three days, every week, every month or annually. Table \ref{users} defines how many of each type the users have respectively. For example, active users are said to have $10$ accounts they visit daily and $35$ visited annually.
-
-\begin{table}
-    \centering
-\begin{tabular}{|c||c|c|c|c|c|}
-    \hline
-    Visitation schedule & 1 & $\frac{1}{3}$ & $\frac{1}{7}$ & $\frac{1}{31}$ & $\frac{1}{365}$ \\
-    \hline \hline
-    Very Active & 10 &10 &10 &10 & 35 \\
-    \hline
-    Typical & 5 & 10 & 10 & 10 & 40 \\
-    \hline
-    Occasional & 2 & 10 & 20 & 20 & 23 \\
-    \hline
-    Infrequent & 0 & 2 & 5 & 10 &  58 \\
-    \hline
-\end{tabular}
-\caption{Visitation schedules.}
-\label{users}
-\end{table}
-
-\subsubsection{Extra rehearsals}
-If an object-mapping association $(\hat c, \hat a)$ is not rehearsed through normal usage within the interval $[t^{\hat c}_i, t^{\hat c}_{i+1})$ users would have to rehearse the association to prevent forgetting it. $ER_{t,\hat c}$ in definition \ref{natural-rehearsal} gives the number of extra rehearsals of $(\hat c, \hat a)$ in a given time interval. From this it can be seen that $ER_t = \sum_{\hat c} ER_{t, \hat c}$ gives the number of rehearsals, in addition to natural rehearsal, needed to maintain all objects in a set of associations. In the context of a password management scheme it is clear smaller values for $E[ER_t]$ yield less effort required by the users.
-\par Blocki et al.\cite{naturally-rehearsing} proves that, given a sufficient rehearsal schedule  and a specific visitation schedule, $ER_t$, total number of extra rehearsals needed to keep all object-mappings in memory, can be predicted through theorem \ref{ERt}. 
-
-
-\begin{theorem}\label{ERt}
-    \cite{naturally-rehearsing} Let $i_{\hat c}* = (arg max_x t^{\hat c}_x < t)- 1 $, then 
-
-    $ E[ER_t] = \sum_{\hat c \in C} \sum^{i_{\hat c *}}_{i=0} exp\bigg(-\bigg(\sum\limits_{j:\hat c \in C_j} \lambda_j \bigg)(t^{\hat c}_{t+1} - t^{\hat c}_i)\bigg)$
-\end{theorem}
-
-\begin{lemma}
-    \cite{naturally-rehearsing} The probability that $\hat c$ is not rehearsed naturally during the interval $[a,b]$ is $exp(-\lambda_{\hat c} (b-a))$, given $S_{\hat c} = \{i \vert \hat c \in c_i \}$ and $\lambda_{\hat c}= \sum_{i \in S_{\hat c}}$
-\end{lemma}
-
-
-
+%\section{Usability Model}\label{sec:usability-model}
+%This section presents the usability model defined by Blocki et al. \cite{naturally-rehearsing}, which predicts the efforts required of users to keep a set of secrets memorized without forgetting it. It will be presented in the context of password management schemes, in particular the HCP scheme relied on in this project. The model will later be used to analyze the usability of the scheme and related applications.
+%
+%\subsection{Definitions}
+%A password management scheme generates and keeps track of passwords $p_1, \dots, p_m \in P$ for all $m \in A$ accounts of users. $P$ is all possible passwords. Let $(\hat c, \hat a)$ represent an association between an object (e.g. letter or picture) and a related  mapping (typically a digit between 1 and 10). Users have to rehearse the association $(\hat c, \hat a)$ to avoid forgetting it. Next two schedules are defined defining how often users have to rehearse to not forget a association, and how often they visit an account.
+%
+%\begin{definition}\label{rehearsal-schedule}
+%    \cite{hcp-blocki} A rehearsal schedule for an object-mapping association $(\hat c, \hat a)$ is a series of points in time $t^{\hat c}_0 < t^{\hat c}_1 < \dots$. A rehearsal requirement for each $i \ge 0$ says that the object-mapping association pair must be rehearsed at least once in the time interval $[ t^{\hat c}_i, t^{\hat c}_i+1) = \{x \in \mathbb{R} \vert t^{\hat c}_i \le x < t^{\hat c}_{i+1} \} $.
+%\end{definition}
+%A rehearsal schedule as defined in definition \ref{rehearsal-schedule} is said to be sufficient if a user can keep an association in his memory without forgetting by following the schedule.
+%
+%\paragraph{Visitation schedule \cite{hcp-blocki}} is a series of numbers $\tau^i_0 < \tau^i_1 < ...$ representing the points in time when a user visits account $A_i$. This schedule cannot be known exactly so it is modeled using a random process with a parameter $\lambda_i$ based on the average time between visits to account $A_i$ - $E[\tau^i_{j+1} - \tau^i_j]$.
+%\par A rehearsal requirement can also be satisfied naturally if a user visits an account using the object $\hat c$ during the interval $[ t^{\hat c}_i, t^{\hat c}_i+1)$, as defined in definition \ref{natural-rehearsal},
+%
+%\begin{definition}\label{natural-rehearsal}\cite{hcp-blocki}
+%     A rehearsal requirement $[ t^{\hat c}_i, t^{\hat c}_i+1)$ is naturally satisfied by a visitation schedule $\tau^i_0 < \tau^i_1 <\dots$ if for any $j \in [m]$ and $k \in \mathbb{N}$ so that $\hat c \in c_j$ and $\tau^j_ki \in [ t^{\hat c}_i, t^{\hat c}_i+1)$. Let \\
+%    \begin{large}
+%    \centerline{ $ER_{t,\hat c} = \vert\{ i \vert t^{\hat c}_{i+1} \le t \wedge \forall j ,k.(\hat c \notin c_j \wedge \tau^j_k \notin [t^{\hat c}_i, t^{\hat c}_i))\} \vert$ }
+%    \end{large}
+%    denote how many extra rehearsals required, that are \emph{not} satisfied by the visitation schedule, during time time interval $[0,t]$
+%\end{definition}
+%
+%
+%
+%
+%\subsection{Model}
+%The core of the model is that usability depends on rehearsal required to remember all passwords, relative to the visitation schedule of the specific user. How hard it is for any given user to remember a relation between object may vary from person to person depending on mnemonic technique and genetic conditions. This is adjusted for in the model by the constant $s$ representing the combined strength of mnemonic technique and the memory of a user. Next, consider two different rehearsal requirements specifying what is needed to maintain a memory.
+%
+%\begin{requirement}\label{CR}
+%    \textbf{ Constant Rehearsal Assumption (CR)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i) = i s$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+%\end{requirement}
+%
+%\begin{requirement}\label{ER}
+%    \textbf{Expanding Rehearsal Assumption (ER)\cite{naturally-rehearsing}.} The rehearsal schedule given by $R(\hat c, i)=2^{i s}$ is sufficient to maintain the association $(\hat c, \hat a)$ in memory.
+%\end{requirement}
+%
+%The difference between these two assumptions about human memory is that CR assumes that users have to keep rehearsing every $s$ days for as long as they want to make sure to not forget anything. This might be too pessimistic since it is reasonable to assume that it gets easier to rehearse for each rehearsal. This is what ER assumes, if a relation has been rehearsed $i$ times it does not have to be rehearsed again in $2^{i s}$ days. ER is the most intuitive assumption to make and is backed up by experiments on how the human brain forgets over time \cite{forgetting, human-memory}.
+%
+%\par 
+%\subsubsection{Visitation Schedule}
+%Every user will eventually have a unique visitation schedule which will vary greatly from user to user. The model uses a Poisson process to model the visitations schedule for a given site $A_i$, with parameter $\lambda_i$. The average time between visits,$\frac{1}{\lambda_i}$, is assumed to be known for each visitation schedule. A site visited every day would yield $\lambda_i = 1$ day, and $\lambda_i=\frac{1}{365}$ days for a site visited annually. 
+%\par Next, the model uses four different types of users which may have accounts of 5 different account types based on visitation frequency. The users can be: very active, typical, occasional or infrequent, while an account can be visited daily, every three days, every week, every month or annually. Table \ref{users} defines how many of each type the users have respectively. For example, active users are said to have $10$ accounts they visit daily and $35$ visited annually.
+%
+%\begin{table}
+%    \centering
+%\begin{tabular}{|c||c|c|c|c|c|}
+%    \hline
+%    Visitation schedule & 1 & $\frac{1}{3}$ & $\frac{1}{7}$ & $\frac{1}{31}$ & $\frac{1}{365}$ \\
+%    \hline \hline
+%    Very Active & 10 &10 &10 &10 & 35 \\
+%    \hline
+%    Typical & 5 & 10 & 10 & 10 & 40 \\
+%    \hline
+%    Occasional & 2 & 10 & 20 & 20 & 23 \\
+%    \hline
+%    Infrequent & 0 & 2 & 5 & 10 &  58 \\
+%    \hline
+%\end{tabular}
+%\caption{Visitation schedules.}
+%\label{users}
+%\end{table}
+%
+%\subsubsection{Extra rehearsals}
+%If an object-mapping association $(\hat c, \hat a)$ is not rehearsed through normal usage within the interval $[t^{\hat c}_i, t^{\hat c}_{i+1})$ users would have to rehearse the association to prevent forgetting it. $ER_{t,\hat c}$ in definition \ref{natural-rehearsal} gives the number of extra rehearsals of $(\hat c, \hat a)$ in a given time interval. From this it can be seen that $ER_t = \sum_{\hat c} ER_{t, \hat c}$ gives the number of rehearsals, in addition to natural rehearsal, needed to maintain all objects in a set of associations. In the context of a password management scheme it is clear smaller values for $E[ER_t]$ yield less effort required by the users.
+%\par Blocki et al.\cite{naturally-rehearsing} proves that, given a sufficient rehearsal schedule  and a specific visitation schedule, $ER_t$, total number of extra rehearsals needed to keep all object-mappings in memory, can be predicted through theorem \ref{ERt}. 
+%
+%
+%\begin{theorem}\label{ERt}
+%    \cite{naturally-rehearsing} Let $i_{\hat c}* = (arg max_x t^{\hat c}_x < t)- 1 $, then 
+%
+%    $ E[ER_t] = \sum_{\hat c \in C} \sum^{i_{\hat c *}}_{i=0} exp\bigg(-\bigg(\sum\limits_{j:\hat c \in C_j} \lambda_j \bigg)(t^{\hat c}_{t+1} - t^{\hat c}_i)\bigg)$
+%\end{theorem}
+%
+%\begin{lemma}
+%    \cite{naturally-rehearsing} The probability that $\hat c$ is not rehearsed naturally during the interval $[a,b]$ is $exp(-\lambda_{\hat c} (b-a))$, given $S_{\hat c} = \{i \vert \hat c \in c_i \}$ and $\lambda_{\hat c}= \sum_{i \in S_{\hat c}}$
+%\end{lemma}
+%
+%
+%
 
 
 

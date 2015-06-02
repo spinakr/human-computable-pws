@@ -210,12 +210,65 @@ After launching the extension, as previously explained, users are presented with
 
 \subsubsection{Data flow}\label{data-flow}
 Figure \ref{flow-chart} illustrates the life cycle of the application. When the user visit a site, an event is triggered and caught by the content script, which in turn message the controller about the newly loaded site. The controller then tries to load challenges for that site from the storage; if there is a record, the view is updated with the first challenge, if not the ``add new''-dialog is loaded. Next event is triggered when the user enters a character in the password field, on receiving notice from the content script the controller updates the view with a new challenge depending on the length of the password. This then goes on until the user has entered the entire password, eventually closing the extension panel.
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\textwidth]{flow-chart} 
+%    \caption{Sequence diagram showing the flow in the system when a page is loaded and characters typed in a password field.}
+%    \label{flow-chart}
+%\end{figure}
+
+
+\renewcommand{\newthread}[3][0.2]{
+    \newinst[#1]{#2}{#3}
+    \stepcounter{threadnum}
+    \node[below of=inst\theinstnum,node distance=0.8cm] (thread\thethreadnum) {};
+    \tikzstyle{threadcolor\thethreadnum}=[fill=gray!30]
+    \tikzstyle{instcolor#2}=[fill=gray!30]
+
+}
+
 \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{flow-chart} 
-    \caption{Sequence diagram showing the flow in the system when a page is loaded and characters typed in a password field.}
-    \label{flow-chart}
+    \centering    
+\begin{sequencediagram}
+    \newthread{ctrl}{Controller}
+    \newthread[1]{cs}{Content Script}
+    \newinst[1]{store}{Chrome Storage}
+    \newthread[1]{page}{Web Page}
+    \newthread{u}{User}
+
+    \mess{u}{Visit page}{page}{}
+        \mess{page}{pageLoadEvent}{cs}{}
+            \mess{cs}{newUrl}{ctrl}
+            \begin{call}{ctrl}{\hspace{3cm}loadChallenges()}{store}{}
+            \end{call}
+
+            \begin{callself}{ctrl}{update view}{}
+            \end{callself}
+
+    
+    \begin{sdblock}{Loop}{}
+        \mess{u}{New char}{page}{}
+            \mess{page}{inputChangedEvent}{cs}{}
+                \mess{cs}{newPwLength}{ctrl}
+                \begin{callself}{ctrl}{update view}{}
+                \end{callself}
+
+    \end{sdblock}
+
+\end{sequencediagram}
+\caption{Sequence diagram showing the flow in the system when a page is loaded and characters typed in a password field.}
+\label{flow-chart}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Discussion}
 The approach of this project when designing the HCP extension was to make an clean and intuitive application, making the password management scheme feasible to use. The extension does not require any user interaction, except from when adding new sites, this was done so the user could focus on doing the calculation correctly without having to keep track of the challenges. The scheme itself is also quit complicated so it is important for the user to focus on as few operations as possible. (The simplest approach would be to have a ``next''-button for the user to click between every character calculated.)
