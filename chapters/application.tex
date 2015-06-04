@@ -261,20 +261,11 @@ Figure \ref{flow-chart} illustrates the life cycle of the application. When the 
 \end{figure}
 
 
-
-
-
-
-
-
-
-
-
 \subsection{Discussion}
 The approach of this project when designing the HCP extension was to make a clean and intuitive application, making the password management scheme feasible to use. The extension does not require any user interaction, except from when adding new sites, this was done so the user could focus on doing the calculation correctly without having to keep track of the challenges. The scheme itself is also quit complicated so it is important for the user to focus on as few operations as possible. (The simplest approach would be to have a ``next''-button for the user to click between every character calculated.)
 \par The choice of a browser extension was done with the same mind set, making the application helpful and not distracting. It should be easy to start using the application, requiring as little configuration and managing as possible. The design and construction makes it so that the only configuration required is the changing of passwords when adding sites, which essentially can not be circumvent. Panels is another very useful feature, since the panels float on top of the other browser windows and keep focus while typing. Without panels the user would have to switch between windows when calculating a character and typing it in the password field, which would be a huge drawback both in terms of time and usability. 
 \par One apparent problem with using extensions is that they are not supported in mobile browsers, and probably will never be\footnote{Multidevice FAQ - \url{https://developer.chrome.com/multidevice/faq}}. The solution to this would be to make an additional application for mobile, and sync the data to another service available on mobile as well. This could be done quite easily since the data is stored as text, the only change needed would be to substitute the storage module with some other cloud storage service. The problem if the application was built for mobile would be the lack of space to display challenges while typing the password. 
-\par As mentioned in 
+\par As mentioned in section \ref{password-strength}, some sites may enforce password policies~\cite{password-policy}, forcing users to include different types of characters. HCP does only produce digits which might be a problem on some sites. A solution to this is to either have an option in the application to mark accounts where policies are enforced and append dummy characters to the password produces by the scheme. E.g if the application displayed challenges producing the password ``234554675687856'', and the site requires a symbol and upper/lower case letters, a user would append ``Xa*'' to the calculated password to circumvent the policy. 
 \par The decision to make a browser extension was made on behalf of the mentioned pros and cons, with the most important parameter being disturbance. Only extensions allow a seamless, non-interfering user interface. The other options, namely web application and mobile application, would require switching between windows or at least switching of focus, as well as requiring the user to manually chose the correct site and browse through the different challenges. This is all done automatically with the construction presented in this chapter. The main goal of the design was to include the least amount of unnecessary features, with a clean and unobstructive interface. A summary of the strengths of the chosen design is listed next.
 
 \begin{itemize}
