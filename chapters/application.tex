@@ -107,7 +107,7 @@ Content scripts are Javascript files running in the context of the active web pa
 \par The content scripts and the message passing system are likely points of attack for adversaries. The content script can monitor the value of the password field and thus, in theory, steal passwords if a malicious script was able to trick it into leaking them. The communication channel is not particularly prone to attacks since even if an adversary eavesdropped all data sent on it, the only information leaked would be the current length of the password. It is though important that the design is like this since the mistake of sending the whole password string, which might seem like a solution, would be potentially dangerous. 
 \par Typical usage of content scripts in this application is to attach event listeners to the password fields of the pages visited by users, and message the extension when the value of the password field changes. When a change happens, the content script sends a message containing the current length of the typed password, so that the extension can display the correct challenge. In example if the user has entered 4 characters of his password the extension should display the 5th challenge etc. The content script also keeps the extension updated on the URL of the current page, by sending a message every time a page is loaded. The extension then displays the challenges corresponding to the password of that site. If the site does not have challenges stored by the application, users can generate new ones and store these in the system through clicking a button.  
 
-\subsection{User interface}
+\subsection{User Interface}
 The user interface is very simple, two possible screens are displayed to the user. Either, challenges associated with the current active page, or a dialog asking users to generate new challenges. When adding a new site, users are asked to categorize the site as low, medium or highly sensitive. Depending on this choice a set amount of challenges are generated and stored. The most important feature of the user interface is that it automatically updates depending on what site the user is currently browsing, and displays the correct challenge while typing passwords. Wireframes illustrating the page schematics of the extension are shown in figures \ref{add-new-screen} and \ref{challenge-screen}. 
 
 \begin{figure}[ht]
@@ -208,7 +208,7 @@ After launching the extension, as previously explained, users are presented with
 
 
 
-\subsubsection{Data flow}\label{data-flow}
+\subsubsection{Data Flow}\label{data-flow}
 Figure \ref{flow-chart} illustrates the life cycle of the application. When the user visit a site, an event is triggered and caught by the content script, which in turn informs the controller about the newly loaded site. The controller then tries to load challenges for that site from the storage; if there is a record, the view is updated with the first challenge, if not the ``add new''-dialog is loaded. Next event is triggered when the user enters a character in the password field, on receiving notice from the content script the controller updates the view with a new challenge depending on the length of the password. This then goes on until the user has entered the entire password, eventually closing the extension panel.
 %\begin{figure}
 %    \centering

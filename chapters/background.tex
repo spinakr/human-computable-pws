@@ -11,7 +11,7 @@ Passwords are the common way of authenticating users upon access to sites on the
 
 \par A normal users will typically try to log in by trial-and-error~\cite{single-pw-auth}, if the first password does not work, users will try with another password. This way passwords might be lost through phishing attacks where a user is tricked into trying to log in to a fake site. 
 
-\subsection{Password strength}\label{password-strength}
+\subsection{Password Strength}\label{password-strength}
 How to measure the strength of passwords is a well known and discussed problem. The naive approach says that password strength is related to how strong a password is against brute force attacks \cite{password-strength}. Length and complexity are the most thought of parameters to measure such strength. A perfect password would thus be one as long as allowed by the system, consisting of random characters, it would also be changed frequently. All these characteristics challenge how the human brain works. 
 \par In addition to the objective strength of the password, techniques making it harder for a computer to repeatedly try different passwords may be applied. Such techniques include CAPTACHAS \cite{captcha} which are puzzles supposed to require a human to be able to solve, making brute force attacks using a computer harder.
 \par Yan et al.~\cite{memorability_yan} investigate the trade-off between security of passwords and memorability allowing humans to remember them. An important point to this is that most sites apply advice and policies on how to create strong passwords, while not taking into account if the recommended passwords are hard or easy to remember. There is no point in having strong passwords if users are going to forget them. Yan et al. suggest that passwords should appear random but be constructed using a  mnemonic structure such as passphrases. The idea is to generate a random looking password by memorizing a familiar sentence and using the first letters of each word as the password. E.g using the familiar sentence ``may the force be with you'' as passphrase which would yield the password \emph{mtfbwy} which looks random.
@@ -120,7 +120,7 @@ Passwords are often the only barrier stopping adversaries from directly accessin
 As seen in the previous sections passwords introduce a dilemma as passwords are supposed to be hard to ``guess'' and thus hard to remember. The naive solution to this problem is to either use one password for many accounts or to write down passwords. To make the process of managing passwords easier, several techniques and tools have been suggested~\cite{management-strategies}. Examples are reminder features including the ``I forgot my password''-function most websites implement, browser cookies allowing users to stay logged in across browser sessions or services storing the passwords. These are all ``computer aided'' tools, which will store or keep users logged in without actually having to remember the password. This usually limits the users to stay on the same machine while using the account, this way users will probably forget passwords and be forced into using the ``forgot my password''-function eventually. A different approach is to use a technique to actually remember the passwords without storing them.
 \par Consider a \emph{password management scheme} to be a method helping users remember password without actually storing them. The term \emph{password management software} or \emph{password manger}s are used about solutions which store the passwords in some way.
 
-\subsection{Password management schemes}
+\subsection{Password Management Schemes}
  
 Password creation and memorization techniques assists users in remembering passwords, trying to circumvent the limitations of the human memory~\cite{human-memory}. 
 \par Blocki et al. \cite{naturally-rehearsing} consider 4 different examples of password managements schemes to illustrate how users might choose and remember their passwords.
@@ -134,7 +134,7 @@ It is clear that the three former schemes are much easier to use than the last o
 
 
 
-\subsection{Password manager software.} \label{subsec:pms}
+\subsection{Password Manager Software.} \label{subsec:pms}
 Password managers are applications meant to keep passwords safe the for users. These applications can either be stand alone programs or, more common, browser extensions such as LastPass \footnote{LastPass - \url{https://lastpass.com/}}. LastPass provide an user interface to generate and store passwords for online services, as well as form fillers to enter them when logging in. The passwords are encrypted using a master password protecting the user credentials against both server leakage and insiders accessing the data. Such systems usually provide a lot of extra features such as automatically changing of passwords and syncing between devices. 
 
 \paragraph{Built-in browser password managers.} Most modern browsers provide "remember password" functions. These functions act similar to software like LastPass, by storing the users' passwords in some fashion, then reproduce it when logging in. 
