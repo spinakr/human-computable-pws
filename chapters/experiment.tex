@@ -254,11 +254,11 @@ Next, the probability of getting the account locked given a three-strike policy 
 \par Observation \ref{tbl:failrate} shows the probabilities of calculating a password wrong once and three times in a row. If users want to use a password of 15 characters, which is reasonable to assume since the scheme only produce digits, they will compute a faulty password nearly 60\% of the time. This limits the usability severely, since users will more often than not, be unable to log in.
 \par The probability of actually locking the account by miscalculating three passwords in a row, is lower but not significantly. With the same failure rate and password length, users would break the three-strike rule approximately one out of five login attempts.
 
-\par To illustrate this consequence in a extreme case, consider the \emph{very active} user from table \ref{users} in \autoref{sec:usability-model} which visits 10 different accounts every day. Such an user would eventually lock two accounts every day with password lengths of 15 characters, which of course is not acceptable.
+\par To illustrate this consequence in a extreme case, consider the \emph{very active} user from table \ref{users} in section \ref{sec:usability} who visits 10 different accounts every day. Such an user would eventually lock two accounts every day with password lengths of 15 characters, which of course is not acceptable.
 
 \par As discussed in \autoref{improving-usab} (and as implemented in \autoref{app}), the password length needed for different accounts may vary. By using shorter password for noncritical accounts, and only generating long passwords for the most critical, the average password length will be much lower than in the examples above. The scheme could then be tweaked by users to fit specific needs, instead of requiring 10 or 15 characters in all passwords generated. For less sensitive accounts users may have passwords of lengths 5, which would make for a mistake in approximately every 4th password, and only locking an account every 57th login attempt. This way users can calculate passwords with significantly less effort and lower failure rates. 
 
-\par The experiment did not find any significant correlation between failure rates and calculation times. Users calculating fast do not have a higher failure rate than slower users, as might be expected. 
+\par The experiment did not find any significant correlation between failure rates and calculation times. Users calculating fast do not have a higher failure rate than slower users, which some might expected. 
 
 %\subsection{Improvement Measures.}
 %\par Blocki et al.~\cite{hcp-blocki} suggests a tweak to the scheme with the purpose of decreasing the calculation time while still ensuring resistance against dictionary attacks. The suggestion is to memorize another mapping $w:\mathbb{Z}_{10} \rightarrow \{x\}$ with $x$ being one of the $10000$ most common English words. Then after computing $f(\sigma(C))$ the user would apply $w$ giving the corresponding word to the digit. The point of doing this is to save time when calculating, but it also solves the problem with high failure rates. Blocki argues, it would be sufficient with 3-5 challenges. With this assumption that 3-5 calculations are enough, the scheme would function significantly better. 
@@ -266,7 +266,7 @@ Next, the probability of getting the account locked given a three-strike policy 
 
 
 \begin{remark}
-    The author remarks that the findings related to failure rates might be too harsh since the participants was asked to calculate the challenges ``as fast as possible'', which might be the wrong approach. In a real world scenario it would be more important to calculate correctly. Though, the results clearly show that the failure rate is a relevant attribute worth investigating closer, as it might limit the usefulness of the scheme in real usecases.
+    The author remarks that the findings related to failure rates might be too harsh since the participants was asked to calculate the challenges ``as fast as possible'', which might be the wrong approach. In a real world scenario it would be more important to calculate correctly. Though, the results clearly show that the failure rate is a relevant attribute worth investigating closer, as it might limit the reliability of the scheme in real usecases.
 \end{remark}
 
 
