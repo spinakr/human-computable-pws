@@ -219,7 +219,7 @@ How fast a user is able to calculate the response to a single digit challenge is
 
 
 
-\subsection{Failure Rate.}
+\subsection{Failure rate.}
 Failure rate is a key characteristic of the scheme. As mentioned it is essential that a user is able to calculate passwords correctly for the scheme to function. How high the failure rate can be depends on how long passwords are used and how often a user can enter the wrong password without locking the account. A typical password protected site will allow a minimum of three strikes before the account is locked~\cite{10-strikes}. It is thus important that the probability of being ``locked out'' is small enough for it not to happen often, how often is of course subject to discussion.
 
 \begin{observation}\label{obs:failrate}
@@ -258,7 +258,7 @@ Next, the probability of getting the account locked given a three-strike policy 
 
 \par As discussed in \autoref{improving-usab} (and as implemented in \autoref{app}), the password length needed for different accounts may vary. By using shorter password for noncritical accounts, and only generating long passwords for the most critical, the average password length will be much lower than in the examples above. The scheme could then be tweaked by users to fit specific needs, instead of requiring 10 or 15 characters in all passwords generated. For less sensitive accounts users may have passwords of lengths 5, which would make for a mistake in approximately every 4th password, and only locking an account every 57th login attempt. This way users can calculate passwords with significantly less effort and lower failure rates. 
 
-\par The experiment did not find any significant correlation between failure rates and calculation times. Users calculating fast do not have a higher failure rate than slower users, which some might expected. 
+\par The experiment did not find any significant correlation between failure rates and calculation times. Users calculating fast do not have a higher failure rate than slower users, which some might have expected. 
 
 %\subsection{Improvement Measures.}
 %\par Blocki et al.~\cite{hcp-blocki} suggests a tweak to the scheme with the purpose of decreasing the calculation time while still ensuring resistance against dictionary attacks. The suggestion is to memorize another mapping $w:\mathbb{Z}_{10} \rightarrow \{x\}$ with $x$ being one of the $10000$ most common English words. Then after computing $f(\sigma(C))$ the user would apply $w$ giving the corresponding word to the digit. The point of doing this is to save time when calculating, but it also solves the problem with high failure rates. Blocki argues, it would be sufficient with 3-5 challenges. With this assumption that 3-5 calculations are enough, the scheme would function significantly better. 

@@ -1,4 +1,4 @@
-\chapter{Extension class files}\label{extension-classes}
+\chapter{Extension Class Files}\label{extension-classes}
 
 \section{Content Script}\label{app:content-script}
 \lstinputlisting[caption=Content script file., style=jsStyle, basicstyle=\scriptsize]{code/content_script.js}
@@ -12,18 +12,18 @@ The controller is responsible for all the business logic, keeping the storage up
 \par When the controller is loaded the first action executed is trying to load the user object from the storage (line 21), if no user object is found, the controller creates a new one. In the code presented here, a new user is initiated with a dummy site for demonstration purposes. All the storage specific methods are called from the \emph{chromeStorage} object, which makes it easy to do operations accessing the Chrome storage. The \emph{getOrElse} is used, which checks for a user object and creates a new if none is present. 
 \par The controller also listens for messages from the content script, this event listener can be seen at line 62. When a message is received the \emph{handleMessage} is called to process the data, distinguishing between a changes in the URL and changes in password length. When data is received, the corresponding variable in the controller is updated. If a new site was added, the view is also updated, hiding the "new site"-button.
 
-\section{App.js file}\label{app:app.js}
+\section{App.js File}\label{app:app.js}
 \lstinputlisting[caption=Angular launcher file., style=jsStyle, basicstyle=\scriptsize]{code/app.js}
 
 The app.js file initiates the application, specifying the modules used, as well as some helper functions, including the function responsible for generating the random challenges(line 66). 
 
-\section{View file (partial file)}\label{app:view}
+\section{View File (partial file)}\label{app:view}
 \lstinputlisting[caption=Angular view. Only included the table showing the challenges for readability., style=jsStyle, basicstyle=\scriptsize, firstline=12, lastline=91]{code/content.html}
 The code shown in this listing contains the view where the challenges are presented, as well as the new site button and site classification radio buttons. Notice the \emph{ng-show} directive on line 14, this decides if the "new site"-functionality should be shown or not. If \emph{newSiteButton} is true it will appearer and vice versa, the same goes for the challenges which starts on line 34 with a similar directive, \emph{ng-hide}, which hides the challenges div if new site is visible.  
 \par The challenges div is essentially a table containing an element of the challenge in each cell. Notice the double bracket notation, where each of the challenge objects are referred. \emph{\{\{site.challenges[pw][i]\}\}} refers to the \emph{\$scope.site.challenges} which contains the challenges associated with the current active page. $pw$ is at any given time the length of the password field of the active web page, if $pw$ changes the challenge on display will automatically change through the two-way data binding. This way, the correct challenge will always be the one seen by the user.
 
 
-\chapter{Demonstration slides}\label{demo-slides}
+\chapter{Demonstration Slides}\label{demo-slides}
 
 \begin{figure}
     \includegraphics[width=\textwidth]{slides/slide1}
@@ -70,7 +70,7 @@ The code shown in this listing contains the view where the challenges are presen
 
 
 
-\chapter{Experiment application}\label{experiment-views}
+\chapter{Experiment Application}\label{experiment-views}
 
 \begin{figure}
     \includegraphics[width=\textwidth]{view1}
